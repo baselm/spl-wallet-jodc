@@ -37,6 +37,15 @@ import { useConnectedWallets } from '../utils/connected-wallets';
 import { usePage } from '../utils/page';
 import { MonetizationOn, OpenInNew } from '@material-ui/icons';
 import AddCustomClusterDialog from "./AddCustomClusterDialog";
+// Baz 
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import Box from '@material-ui/core/Box';
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -47,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
+  },
+  root: {
+    display: 'flex',
   },
   title: {
     flexGrow: 1,
@@ -63,6 +75,22 @@ const useStyles = makeStyles((theme) => ({
     height: 16,
     width: 16,
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+  },
+  toolbar: theme.mixins.toolbar,
+
 }));
 
 export default function NavigationFrame({ children }) {
@@ -70,7 +98,9 @@ export default function NavigationFrame({ children }) {
   const isExtensionWidth = useIsExtensionWidth();
   return (
     <>
-      <AppBar position="static" variation="inhert">
+
+      <AppBar position="static" className={classes.appBar}>
+
         {!isExtension && (
           <div
             style={{
@@ -83,7 +113,7 @@ export default function NavigationFrame({ children }) {
             }}
           >
             <Typography>
-              Beware this site is used for lending money 
+              Beware this site is used for lending money under the Islamic Law
             </Typography>
           </div>
         )}
@@ -94,6 +124,31 @@ export default function NavigationFrame({ children }) {
           <NavigationButtons />
         </Toolbar>
       </AppBar>
+      
+      <Drawer
+      className={classes.drawer}
+      variant="permanent"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      >
+      <Toolbar />
+
+     <Box sx={{ overflow: 'auto' }}>
+          <List>
+            {['Invest', 'Market', 'Dashboard', 'Borrow'].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          
+        </Box>
+      </Drawer>
       <main className={classes.content}>{children}</main>
       {!isExtensionWidth && <Footer />}
     </>
@@ -447,17 +502,9 @@ function Footer() {
   const classes = useFooterStyles();
   return (
     <footer className={classes.footer}>
-      <Button
-        variant="outlined"
-        color="primary"
-        component="a"
-        target="_blank"
-        rel="noopener"
-        href="https://github.com/serum-foundation/spl-token-wallet"
-        startIcon={<CodeIcon />}
-      >
-        View Source
-      </Button>
+      <Typography>
+        Raya Software Limited (Copyrights Reserved)
+      </Typography>
     </footer>
   );
 }

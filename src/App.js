@@ -36,9 +36,9 @@ export default function App() {
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: '#a632a8'
+            main: '#a632a8',
           },
-          secondary: {main: '#6859FF'} 
+          secondary: { main: '#6859FF' },
         },
         // TODO consolidate popup dimensions
         ext: '450',
@@ -71,7 +71,6 @@ export default function App() {
     <Suspense fallback={<LoadingIndicator />}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         <ConnectionProvider>
           <TokenRegistryProvider>
             <SnackbarProvider maxSnack={5} autoHideDuration={8000}>
@@ -90,7 +89,7 @@ function PageContents() {
   const [showWalletSuggestion, setShowWalletSuggestion] = useState(true);
   const suggestionKey = 'private-irgnore-wallet-suggestion';
   const ignoreSuggestion = window.localStorage.getItem(suggestionKey);
-  console.log("Baz working start");
+  console.log('Baz working start');
   if (!wallet) {
     return (
       <>
@@ -160,7 +159,7 @@ function WalletSuggestionDialog({ open, onClose, onIgnore }) {
               }}
             >
               <div>
-              // eslint-disable-next-line
+                // eslint-disable-next-line
                 <img
                   style={{ height: '39px' }}
                   src="https://raw.githubusercontent.com/solana-labs/wallet-adapter/master/packages/wallets/icons/phantom.svg"

@@ -6,7 +6,7 @@ import { useIsProdNetwork } from '../utils/connection';
 import DebugButtons from '../components/DebugButtons';
 import { makeStyles } from '@material-ui/core';
 import { useIsExtensionWidth } from '../utils/utils';
- 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     [theme.breakpoints.down(theme.ext)]: {
@@ -28,11 +28,17 @@ export default function WalletPage() {
   const isProdNetwork = useIsProdNetwork();
   const isExtensionWidth = useIsExtensionWidth();
   return (
-    <div>
+    <Container fixed maxWidth="md" className={classes.container}>
+      <Grid container spacing={isExtensionWidth ? 0 : 3}>
+        <Grid item xs={12} className={classes.balancesContainer}>
           <BalancesList />
-          {isProdNetwork ? null : (
-             <DebugButtons />
-         )}
-         </div>
-   );
+        </Grid>
+        {isProdNetwork ? null : (
+          <Grid item xs={12}>
+            <DebugButtons />
+          </Grid>
+        )}
+      </Grid>
+    </Container>
+  );
 }

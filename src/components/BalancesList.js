@@ -629,6 +629,7 @@ function BalanceListItemDetails({
   const isSolAddress = publicKey.equals(owner);
   const additionalInfo = isExtensionWidth ? undefined : (
     <>
+      <Typography variant="h6" gutterBottom> Baz </Typography>
       <Typography variant="body2">
         Token Name: {tokenName ?? 'Unknown'}
       </Typography>
