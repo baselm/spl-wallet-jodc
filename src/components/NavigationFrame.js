@@ -51,8 +51,8 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import PaymentIcon from '@material-ui/icons/Payment';
-
-
+import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
+import IslamicIcon from './IslamicIcon';
 const drawerWidth = 240;
 
 
@@ -173,8 +173,14 @@ export default function NavigationFrame({ children }) {
           </div>
         )}
         <Toolbar>
+        <IconButton color="inherit">
+            <SolanaIcon />
+          </IconButton>
+        <br/>
           <Typography variant="h6" className={classes.title} component="h1">
-            {isExtensionWidth ? 'JODC' : 'Islamic Crypto Funding'}
+                    
+            {isExtensionWidth ? 'JODC' : '   Islamic Crypto Funding'}
+
           </Typography>
           <NavigationButtons />
         </Toolbar>
