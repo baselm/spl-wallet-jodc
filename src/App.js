@@ -36,9 +36,9 @@ export default function App() {
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: '#a632a8',
+            main: '#003E00',
           },
-          secondary: { main: '#6859FF' },
+          secondary: { main: '#FFFFFF' },
         },
         // TODO consolidate popup dimensions
         ext: '450',

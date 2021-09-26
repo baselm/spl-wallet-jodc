@@ -45,7 +45,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Box from '@material-ui/core/Box';
+import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
+import { useHistory, useLocation } from 'react-router-dom'
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import TimelineIcon from '@material-ui/icons/Timeline';
+import PaymentIcon from '@material-ui/icons/Payment';
+
+
 const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -61,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 3,
   },
   button: {
     marginLeft: theme.spacing(1),
@@ -76,14 +85,31 @@ const useStyles = makeStyles((theme) => ({
     width: 16,
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    postion: 'absolute',
+    zIndex: '1600',
+    width: '100%', 
+    elevation: '0',
+    height: '14%'
+
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
+    position: "fixed",
     width: drawerWidth,
+    borderRadius: 0,
+    borderTop: "none",
+    background: theme.palette.primary.main,
+    borderBottom: "none",
+    top: theme.spacing(8), // push content down to fix scrollbar position
+    height: `calc(100% - ${theme.spacing(8)}px)` // subtract appbar height
+  },
+  drawerContent: {
+    overflow: "auto",
+    display: "flex",
+    flexDirection: "column"
   },
   content: {
     flexGrow: 1,
@@ -96,10 +122,39 @@ const useStyles = makeStyles((theme) => ({
 export default function NavigationFrame({ children }) {
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
+  
+
+
+
+  const menuItems = [
+    { 
+      text: 'Market', 
+      icon: <TimelineIcon color="secondary" fontSize="large" />, 
+      path: '/market' 
+    },
+    
+    { 
+      text: 'Dashboard', 
+      icon: <DashboardIcon color="secondary" fontSize="large" />, 
+      path: '/dashboard' 
+    },
+    { 
+      text: 'Invest', 
+      icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 
+      path: '/invest' 
+    },
+   
+    { 
+      text: 'Borrow', 
+      icon: <PaymentIcon color="secondary" fontSize="large" />, 
+      path: '/borrow' 
+    },
+  ];
+
   return (
     <>
 
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static" className={classes.appBar} elevation={0} >
 
         {!isExtension && (
           <div
@@ -126,27 +181,43 @@ export default function NavigationFrame({ children }) {
       </AppBar>
       
       <Drawer
-      className={classes.drawer}
       variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
+      anchor="left"
+         elevation={0}
+        PaperProps={{
+          variant: "outlined"
+        }}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+         
       >
       <Toolbar />
 
      <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Invest', 'Market', 'Dashboard', 'Borrow'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+          {menuItems.map((item) => (
+            <ListItem 
+              button 
+              key={item.text} 
+            //  onClick={() => history.push(item.path)}
+            //  className={location.pathname == item.path ? classes.active : null}
+            >
+              <ListItemIcon style={{fill: "gold"}}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} 
+                            primaryTypographyProps={{
+                              color:'secondary', 
+                              fontWeight:'large', 
+                              variant: 'h5' 
+                            }}
+              
+              
+              
+              />
+            </ListItem>
+          ))}
           </List>
-          <Divider />
-          
+           
         </Box>
       </Drawer>
       <main className={classes.content}>{children}</main>
@@ -154,6 +225,8 @@ export default function NavigationFrame({ children }) {
     </>
   );
 }
+
+ 
 
 function NavigationButtons() {
   const isExtensionWidth = useIsExtensionWidth();
