@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { useHistory, useLocation } from 'react-router-dom'
+
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -46,13 +48,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Box from '@material-ui/core/Box';
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
-import { useHistory, useLocation } from 'react-router-dom'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import PaymentIcon from '@material-ui/icons/Payment';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 import IslamicIcon from './IslamicIcon';
+import { Link } from "react-router-dom";
+
 const drawerWidth = 240;
 
 
@@ -122,32 +125,32 @@ const useStyles = makeStyles((theme) => ({
 export default function NavigationFrame({ children }) {
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
-  
+ 
 
 
 
   const menuItems = [
     { 
-      text: 'Market', 
+      text: 'Wallet', 
       icon: <TimelineIcon color="secondary" fontSize="large" />, 
-      path: '/market' 
+      path: '/' 
     },
     
     { 
       text: 'Dashboard', 
       icon: <DashboardIcon color="secondary" fontSize="large" />, 
-      path: '/dashboard' 
+      path: '/Dashboard' 
     },
     { 
       text: 'Invest', 
       icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 
-      path: '/invest' 
+      path: '/Invest' 
     },
    
     { 
       text: 'Borrow', 
       icon: <PaymentIcon color="secondary" fontSize="large" />, 
-      path: '/borrow' 
+      path: '/Borrow' 
     },
   ];
 
@@ -179,7 +182,7 @@ export default function NavigationFrame({ children }) {
         <br/>
           <Typography variant="h6" className={classes.title} component="h1">
                     
-            {isExtensionWidth ? 'JODC' : '   Islamic Crypto Funding'}
+            {isExtensionWidth ? 'JODC' : 'Islamic Crypto Funding'}
 
           </Typography>
           <NavigationButtons />
@@ -204,10 +207,13 @@ export default function NavigationFrame({ children }) {
           <List>
           {menuItems.map((item) => (
             <ListItem 
-              button 
+              button
+              component={Link} 
               key={item.text} 
-            //  onClick={() => history.push(item.path)}
-            //  className={location.pathname == item.path ? classes.active : null}
+              to={item.path}
+             // onClick={() => console.log('you clicked me')}
+
+         //     className={location.pathname == item.path ? classes.active : null}
             >
               <ListItemIcon style={{fill: "gold"}}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} 
@@ -339,6 +345,7 @@ function NetworkSelector() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [addCustomNetworkOpen, setCustomNetworkOpen] = useState(false);
   const classes = useStyles();
+  
 
   return (
     <>

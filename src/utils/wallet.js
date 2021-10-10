@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom'
+
 import * as bs58 from 'bs58';
 import { Account, PublicKey } from '@solana/web3.js';
 import nacl from 'tweetnacl';
@@ -156,7 +158,7 @@ export function WalletProvider({ children }) {
   const { enqueueSnackbar } = useSnackbar();
   const connection = useConnection();
   const [wallet, setWallet] = useState();
-
+ 
   // `privateKeyImports` are accounts imported *in addition* to HD wallets
   const [privateKeyImports, setPrivateKeyImports] = useLocalStorageState(
     'walletPrivateKeyImports',

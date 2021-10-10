@@ -6,7 +6,12 @@ import { useIsProdNetwork } from '../utils/connection';
 import DebugButtons from '../components/DebugButtons';
 import { makeStyles } from '@material-ui/core';
 import { useIsExtensionWidth } from '../utils/utils';
-
+import Dashboard from './Dashboard';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   container: {
     [theme.breakpoints.down(theme.ext)]: {
@@ -39,6 +44,8 @@ export default function WalletPage() {
           </Grid>
         )}
       </Grid>
+      
+
     </Container>
   );
 }

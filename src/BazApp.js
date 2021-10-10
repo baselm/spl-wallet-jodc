@@ -31,10 +31,9 @@ import Dashboard from './pages/Dashboard';
 import Invest from './pages/Invest';
 import Borrow from './pages/Borrow';
 
-export default function App() {
-  // TODO: add toggle for dark mode
+function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = React.useMemo(
+  const theme = createMuiTheme(
     () =>
       createMuiTheme({
         palette: {
@@ -50,59 +49,43 @@ export default function App() {
     [prefersDarkMode],
   );
 
-  let appElement = (
-    <NavigationFrame>
-      <Suspense fallback={<LoadingIndicator />}>
-        <PageContents />
-      </Suspense>
-    </NavigationFrame>
-  );
-
-  if (isExtension) {
-    appElement = (
-      <ConnectedWalletsProvider>
-        <PageProvider>{appElement}</PageProvider>
-      </ConnectedWalletsProvider>
-    );
-  }
-
   return (
-    <Suspense fallback={<LoadingIndicator />}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <ConnectionProvider>
-          <TokenRegistryProvider>
-            <SnackbarProvider maxSnack={5} autoHideDuration={8000}>
-              <WalletProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ConnectionProvider>
+        <TokenRegistryProvider>
+          <SnackbarProvider maxSnack={5} autoHideDuration={8000}>
+            <WalletProvider>
+              <NavigationFrame>
                 <Router>
-                  <NavigationFrame>
-                    <Switch>
-                      <Route exact path="/">
-                        <Suspense fallback={<LoadingIndicator />}>
-                          <PageContents />
-                        </Suspense>
-                      </Route>
+                  <Switch>
+                    <Route exact path="/">
+                      <Suspense fallback={<LoadingIndicator />}>
+                        <PageContents />
+                      </Suspense>
+                    </Route>
 
-                      <Route path="/Dashboard">
-                        <Dashboard />
-                      </Route>
-                      <Route path="/Invest">
-                        <Invest />
-                      </Route>
-                      <Route path="/Borrow">
-                        <Borrow />
-                      </Route>
-                    </Switch>
-                  </NavigationFrame>
+                    <Route path="/Dashboard">
+                      <Dashboard />
+                    </Route>
+                    <Route path="/Invest">
+                      <Invest />
+                    </Route>
+                    <Route path="/Borrow">
+                      <Borrow />
+                    </Route>
+                  </Switch>
                 </Router>
-              </WalletProvider>
-            </SnackbarProvider>
-          </TokenRegistryProvider>
-        </ConnectionProvider>
-      </ThemeProvider>
-    </Suspense>
+              </NavigationFrame>
+            </WalletProvider>
+          </SnackbarProvider>
+        </TokenRegistryProvider>
+      </ConnectionProvider>
+    </ThemeProvider>
   );
 }
+
+export default App;
 
 function PageContents() {
   const wallet = useWallet();
