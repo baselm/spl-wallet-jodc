@@ -30,7 +30,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Invest from './pages/Invest';
 import Borrow from './pages/Borrow';
-
+import DemoDashboard from './pages/DemoDashboard';
 export default function App() {
   // TODO: add toggle for dark mode
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -86,8 +86,8 @@ export default function App() {
                       <Route path="/Dashboard">
                         <Dashboard />
                       </Route>
-                      <Route path="/Invest">
-                        <Invest />
+                      <Route path="/DemoDashboard">
+                        <DemoDashboard />
                       </Route>
                       <Route path="/Borrow">
                         <Borrow />

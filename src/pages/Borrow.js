@@ -6,7 +6,7 @@ import { useIsProdNetwork } from '../utils/connection';
 import DebugButtons from '../components/DebugButtons';
 import { makeStyles } from '@material-ui/core';
 import { useIsExtensionWidth } from '../utils/utils';
-import Dashboard from './Dashboard';
+import Dashboard from './DemoDashboard';
 
 const useStyles = makeStyles((theme) => ({
   container: {

@@ -142,9 +142,9 @@ export default function NavigationFrame({ children }) {
       path: '/Dashboard' 
     },
     { 
-      text: 'Invest', 
+      text: 'DemoDashboard', 
       icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 
-      path: '/Invest' 
+      path: '/DemoDashboard' 
     },
    
     { 

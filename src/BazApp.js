@@ -27,7 +27,7 @@ import ConnectionsPage from './pages/ConnectionsPage';
 import { isExtension } from './utils/utils';
 import { PageProvider, usePage } from './utils/page';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/DemoDashboard';
 import Invest from './pages/Invest';
 import Borrow from './pages/Borrow';
 
