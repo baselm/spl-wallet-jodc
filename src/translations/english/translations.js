@@ -51,6 +51,26 @@ export const TRANSLATIONS_EN = {
     deposit:"Deposit", 
     Export:"Export", 
     withdraw:"Withdraw",
+    exportcryptowallet:"Export Crypto Wallet",
+    tokenName:"Token Name",
+    tokenSymbol:"Token Symbol",
+    auxaccount:"This is an auxiliary token account.",
+    solscan:"View on Solscan",
+    serum:"View on Serum",
+    ethereum:"View on Ethereum",
+    ViewDetails:"View Details",
+    MintAddress:"Mint Address",
+    tokenInfo:"Token Info",
+    Delete:"Delete",
+    Send:"Send",
+    EnterSolAddress:"Enter Solana Address",
+    EnetrSPLorSOLEnter: "SPL token or Solana address",
+    Amount:"Amount",
+    RecipientAddress:"Recipient Address",
+    AddressNoFund:"This address has no funds. Are you sure it's correct?",
+    AddressReciveNote:"This address can be used to receive",
+    DepositAccount:"Deposit Account",
+    Copied:"Copied"
 
 
     

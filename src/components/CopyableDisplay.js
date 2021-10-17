@@ -8,7 +8,7 @@ import QRCode from 'qrcode.react';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
-
+import { useTranslation } from 'react-i18next';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -28,12 +28,13 @@ export default function CopyableDisplay({
   const { enqueueSnackbar } = useSnackbar();
   const textareaRef = useRef();
   const classes = useStyles();
+  const {t} = useTranslation();
   const copyLink = () => {
     let textArea = textareaRef.current;
     if (textArea) {
       textArea.select();
       document.execCommand('copy');
-      enqueueSnackbar(`Copied ${label}`, {
+      enqueueSnackbar(t('Copied') +" " +label, {
         variant: 'info',
         autoHideDuration: 2500,
       });

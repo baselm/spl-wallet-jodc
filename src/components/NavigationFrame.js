@@ -609,7 +609,7 @@ function Footer() {
   return (
     <footer className={classes.footer}>
       <Typography>
-        {t('RayaSoftwareSystems')} {" © حقوق الطبع والنشر  "}
+        {t('RayaSoftwareSystems')} {"©"}
       </Typography>
     </footer>
   );

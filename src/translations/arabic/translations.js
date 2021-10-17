@@ -46,11 +46,37 @@ export const TRANSLATIONS_AR = {
     AddAccount:"إضافة حساب",
     ExportMnemonic:"تصدير الذاكرة",
     DeleteMnemonicLogOut:"حذف الذاكرة وتسجيل الخروج",
-    RayaSoftwareSystems:"راية للأنظمة البرمجية", 
+    RayaSoftwareSystems:"شركة راية للأنظمة البرمجية", 
     deposit: "إيداع", 
     Export:"تصدير", 
-    withdraw:"انسحب",
-    "تصدير المحفظة المشفرة",
+    withdraw:"سحب",
+    exportcryptowallet: "تصدير المحفظة المشفرة",
+    tokenName:"اسم العملة ",
+    tokenSymbol:"رمز العملة ",
+    auxaccount:"هذا حساب رمزي إضافي",
+    solscan:"عرض على شبكة سولكان",
+    serum:"serum عرض على  شبكةالسيروم",
+    ethereum:"عرض على شبكة Ethereum",
+    ViewDetails:"عرض التفاصيل",
+    MintAddress:"عنوان Mint",
+    tokenInfo:"معلومات العملة",
+    Delete:"حذف",
+    Send:"إرسال",
+    EnterSolAddress:"أدخل حساب سولانا ",
+    EnetrSPLorSOLEnter: "الرمز المميز لـ SPL أو عنوان Solana",
+    Amount:"مبلغ",
+    RecipientAddress: "حساب المستلم",
+    AddressNoFund:"هذا العنوان ليس له رصيد. هل أنت متأكد من أنها عملية صحيحة؟",
+    AddressReciveNote:"يمكن استخدام هذا الحساب لتلقي",
+    DepositAccount:"حساب الإيداع",
+    Copied:"تم نسخ"
+
+
+
+    
+
+
+
 
 
 

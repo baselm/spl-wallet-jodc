@@ -29,6 +29,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { DialogContentText, Tooltip } from '@material-ui/core';
 import { EthFeeEstimate } from './EthFeeEstimate';
+import { useTranslation } from "react-i18next";
 
 const DISABLED_MINTS = new Set(['ABE7D8RU1eHfCJWzHYZZeymeE8k9nPPXfqge2NQYyKoL']);
 
@@ -44,7 +45,7 @@ export default function DepositDialog({
   const urlSuffix = useSolanaExplorerUrlSuffix();
   const { mint, tokenName, tokenSymbol, owner } = balanceInfo;
   const [tab, setTab] = useState(0);
-
+  const {t} = useTranslation();
   // SwapInfos to ignore.
   if (swapInfo && swapInfo.coin && swapInfo.coin.erc20Contract === '0x2b2e04bf86978b45bb2edf54aca876973bdd43c0') {
     swapInfo = null;
@@ -82,7 +83,7 @@ export default function DepositDialog({
   return (
     <DialogForm open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
-        Deposit {tokenName ?? mint.toBase58()}
+        {t('deposit')} {tokenName ?? mint.toBase58()}
         {tokenSymbol ? ` (${tokenSymbol})` : null}
         {ethAccount && (
           <div>
@@ -106,13 +107,13 @@ export default function DepositDialog({
               </DialogContentText>
             ) : (
               <DialogContentText>
-                This address can be used to receive{' '}
+                {t('AddressReciveNote')}{' '}
                 {tokenSymbol ?? abbreviateAddress(mint)}.
               </DialogContentText>
             )}
             <CopyableDisplay
               value={depositAddressStr}
-              label={'Deposit Address'}
+              label={t('DepositAccount')}
               autoFocus
               qrCode
             />
@@ -125,7 +126,7 @@ export default function DepositDialog({
                 target="_blank"
                 rel="noopener"
               >
-                View on Solscan
+                {t('solscan')}
               </Link>
             </DialogContentText>
           </>
@@ -138,7 +139,7 @@ export default function DepositDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>{t('Close')}</Button>
       </DialogActions>
     </DialogForm>
   );

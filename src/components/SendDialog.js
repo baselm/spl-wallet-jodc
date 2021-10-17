@@ -37,6 +37,7 @@ import { parseTokenAccountData } from '../utils/tokens/data';
 import { Switch, Tooltip } from '@material-ui/core';
 import { EthFeeEstimate } from './EthFeeEstimate';
 import { resolveDomainName, resolveTwitterHandle } from '../utils/name-service';
+import { useTranslation } from "react-i18next";
 
 const WUSDC_MINT = new PublicKey(
   'BXXkv6z8ykpG1yuvUDPgh732wzVHB69RnB9YgSYh3itW',
@@ -57,6 +58,7 @@ export default function SendDialog({ open, onClose, publicKey, balanceInfo }) {
   const isProdNetwork = useIsProdNetwork();
   const [tab, setTab] = useState('spl');
   const onSubmitRef = useRef();
+  const {t} = useTranslation();
 
   let [swapCoinInfo] = useSwapApiGet(
     showSwapAddress && balanceInfo.mint && isProdNetwork
@@ -126,7 +128,7 @@ export default function SendDialog({ open, onClose, publicKey, balanceInfo }) {
         fullWidth
       >
         <DialogTitle>
-          Send {tokenName ?? abbreviateAddress(mint)}
+          {t('withdraw')} {tokenName ?? abbreviateAddress(mint)}
           {tokenSymbol ? ` (${tokenSymbol})` : null}
           {ethAccount && (
             <div>
@@ -205,10 +207,11 @@ export default function SendDialog({ open, onClose, publicKey, balanceInfo }) {
 }
 
 function SendSplDialog({ onClose, publicKey, balanceInfo, onSubmitRef }) {
+  const {t} = useTranslation();
   const defaultAddressHelperText =
     !balanceInfo.mint || balanceInfo.mint.equals(WRAPPED_SOL_MINT)
-      ? 'Enter Solana Address'
-      : 'Enter SPL token or Solana address';
+      ? t('EnterSolAddress')
+      : t('EnetrSPLorSOLEnter');
   const wallet = useWallet();
   const [sendTransaction, sending] = useSendTransaction();
   const [addressHelperText, setAddressHelperText] = useState(
@@ -341,7 +344,7 @@ function SendSplDialog({ onClose, publicKey, balanceInfo, onSubmitRef }) {
               'text-align': 'left',
             }}
           >
-            <b>This address has no funds. Are you sure it's correct?</b>
+            <b>{t('AddressNoFund')}</b>
             <Switch
               checked={overrideDestinationCheck}
               onChange={(e) => setOverrideDestinationCheck(e.target.checked)}
@@ -349,9 +352,9 @@ function SendSplDialog({ onClose, publicKey, balanceInfo, onSubmitRef }) {
             />
           </div>
         )}
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>{t('Cancel')}</Button>
         <Button type="submit" color="primary" disabled={disabled}>
-          Send
+          {t("Send")}
         </Button>
       </DialogActions>
     </>
@@ -655,11 +658,11 @@ function useForm(
 
   const parsedAmount = parseFloat(transferAmountString) * 10 ** decimals;
   const validAmount = parsedAmount > 0 && parsedAmount <= balanceAmount;
-
+  const {t}= useTranslation();
   const fields = (
     <>
       <TextField
-        label="Recipient Address"
+        label= {t('RecipientAddress')}
         fullWidth
         variant="outlined"
         margin="normal"
@@ -674,7 +677,7 @@ function useForm(
         error={!passAddressValidation && passAddressValidation !== undefined}
       />
       <TextField
-        label="Amount"
+        label={t('Amount')}
         fullWidth
         variant="outlined"
         margin="normal"

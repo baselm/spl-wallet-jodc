@@ -633,18 +633,18 @@ function BalanceListItemDetails({
   const isSolAddress = publicKey.equals(owner);
   const additionalInfo = isExtensionWidth ? undefined : (
     <>
-      <Typography variant="h6" gutterBottom> Baz </Typography>
+      
       <Typography variant="body2">
-        Token Name: {tokenName ?? 'Unknown'}
+        {t('tokenName')}: {tokenName ?? 'Unknown'}
       </Typography>
       <Typography variant="body2">
-        Token Symbol: {tokenSymbol ?? 'Unknown'}
+        {t('tokenSymbol')}: {tokenSymbol ?? 'Unknown'}
       </Typography>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
           {!isSolAddress && isAssociatedToken === false && (
             <div style={{ display: 'flex' }}>
-              This is an auxiliary token account.
+              {t('auxaccount')}
             </div>
           )}
           <Typography variant="body2">
@@ -655,7 +655,7 @@ function BalanceListItemDetails({
               target="_blank"
               rel="noopener"
             >
-              View on Solscan
+              {t('solscan')}
             </Link>
           </Typography>
           {market && (
@@ -665,7 +665,8 @@ function BalanceListItemDetails({
                 target="_blank"
                 rel="noopener"
               >
-                View on Serum
+                
+                {t('serum')}
               </Link>
             </Typography>
           )}
@@ -679,7 +680,8 @@ function BalanceListItemDetails({
                 target="_blank"
                 rel="noopener"
               >
-                View on Ethereum
+                
+                {t('ethereum')}
               </Link>
             </Typography>
           )}
@@ -689,14 +691,14 @@ function BalanceListItemDetails({
                 className={classes.viewDetails}
                 onClick={() => setShowDetails(!showDetails)}
               >
-                View Details
+                {t('ViewDetails')}
               </Link>
             </Typography>
           )}
           {showDetails &&
             (mint ? (
               <Typography variant="body2" className={classes.address}>
-                Mint Address: {mint.toBase58()}
+                {t("mintAddress")}: {mint.toBase58()}
               </Typography>
             ) : null)}
           {!isSolAddress && showDetails && (
@@ -710,7 +712,7 @@ function BalanceListItemDetails({
           <div>
             <Typography variant="body2">
               <Link href={'#'} onClick={(e) => setExportAccDialogOpen(true)}>
-                {t('Export')}
+                {t('exportcryptowallet')}
               </Link>
             </Typography>
           </div>
@@ -736,7 +738,7 @@ function BalanceListItemDetails({
               startIcon={<InfoIcon />}
               onClick={() => setTokenInfoDialogOpen(true)}
             >
-              Token Info
+              {t('tokenInfo')}
             </Button>
           ) : null}
           <Button
@@ -766,7 +768,7 @@ function BalanceListItemDetails({
               startIcon={<DeleteIcon />}
               onClick={() => setCloseTokenAccountDialogOpen(true)}
             >
-              Delete
+              {t('Delete')}
             </Button>
           ) : null}
         </div>
