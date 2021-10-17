@@ -14,6 +14,7 @@ export const serumMarkets = (() => {
   const m: Markets = {};
   MARKETS.forEach((market) => {
     const coin = market.name.split('/')[0];
+    console.log("coin " + coin);
     if (m[coin]) {
       // Only override a market if it's not deprecated	.
       if (!m.deprecated) {

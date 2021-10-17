@@ -31,6 +31,9 @@ import Dashboard from './pages/Dashboard';
 import Invest from './pages/Invest';
 import Borrow from './pages/Borrow';
 import DemoDashboard from './pages/DemoDashboard';
+import { useTranslation } from 'react-i18next';
+import { arSD } from '@mui/material/locale';
+
 export default function App() {
   // TODO: add toggle for dark mode
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -46,6 +49,7 @@ export default function App() {
         },
         // TODO consolidate popup dimensions
         ext: '450',
+        arSD,
       }),
     [prefersDarkMode],
   );
@@ -53,6 +57,7 @@ export default function App() {
   let appElement = (
     <NavigationFrame>
       <Suspense fallback={<LoadingIndicator />}>
+        <div> Welcome </div>
         <PageContents />
       </Suspense>
     </NavigationFrame>
@@ -151,26 +156,12 @@ const useStyles = makeStyles(() => ({
 
 function WalletSuggestionDialog({ open, onClose, onIgnore }) {
   const classes = useStyles();
+  const { t } = useTranslation();
   return (
     <DialogForm open={open} onClose={onClose} fullWidth>
-      <DialogTitle>Looking for a Wallet?</DialogTitle>
+      <DialogTitle>{t('LookingforaWallet')}</DialogTitle>
       <DialogContent>
-        <Typography>
-          Sollet is an{' '}
-          <a
-            style={{ color: 'inherit' }}
-            href="https://github.com/project-serum/spl-token-wallet"
-            target="__blank"
-          >
-            {' '}
-            open source
-          </a>{' '}
-          wallet for advanced users and developers. For the best Solana
-          experience and user support, it is recommended to use <b>
-            Phantom
-          </b>{' '}
-          or <b>Solflare</b>.
-        </Typography>
+        <Typography>{t('connectWalletText')}</Typography>
         <List disablePadding style={{ marginTop: '16px' }}>
           <ListItem button disablePadding style={{ padding: 0 }}>
             <div
@@ -238,10 +229,10 @@ function WalletSuggestionDialog({ open, onClose, onIgnore }) {
       </DialogContent>
       <DialogActions>
         <Button type="submit" color="primary" onClick={onIgnore}>
-          Ignore Future Dialog
+          {t('IgnoreFutureDialog')}
         </Button>
         <Button type="submit" color="primary" onClick={onClose}>
-          Ok
+          {t('ok')}
         </Button>
       </DialogActions>
     </DialogForm>

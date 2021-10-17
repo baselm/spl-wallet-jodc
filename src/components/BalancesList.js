@@ -63,6 +63,7 @@ import SwapButton from './SwapButton';
 import DnsIcon from '@material-ui/icons/Dns';
 import DomainsList from './DomainsList';
 
+import { useTranslation } from "react-i18next";
 const balanceFormat = new Intl.NumberFormat(undefined, {
   minimumFractionDigits: 4,
   maximumFractionDigits: 4,
@@ -195,13 +196,13 @@ export default function BalancesList() {
   }, [sortedPublicKeys, setUsdValuesCallback]);
 
   const iconSize = isExtensionWidth ? 'small' : 'medium';
-
+  const {t} = useTranslation();
   return (
     <Paper>
       <AppBar position="static" color="default" elevation={1}>
         <Toolbar>
           <CopyToClipboard
-            text={selectedAccount && selectedAccount.address.toBase58()}
+            text={t("selectedAccount") && selectedAccount.address.toBase58()}
             onCopy={() => {
               setIsCopied(true);
               setTimeout(() => {
@@ -401,9 +402,10 @@ export function BalanceListItem({ publicKey, expandable, setUsdValue }) {
     if (balanceInfo) {
       if (balanceInfo.tokenSymbol) {
         const coin = balanceInfo.tokenSymbol.toUpperCase();
+       
         // Don't fetch USD stable coins. Mark to 1 USD.
-        if (coin === 'USDT' || coin === 'USDC' || coin === 'SOL') {
-          setPrice(100);
+        if (coin === 'USDT' || coin === 'USDC' ) {
+          setPrice(1);
         }
         // A Serum market exists. Fetch the price.
         else if (serumMarkets[coin]) {
@@ -412,6 +414,7 @@ export function BalanceListItem({ publicKey, expandable, setUsdValue }) {
             .getPrice(connection, m.name)
             .then((price) => {
               setPrice(price);
+              console.log("Price " + price);
             })
             .catch((err) => {
               console.error(err);
@@ -589,6 +592,7 @@ function BalanceListItemDetails({
   const [showDetails, setShowDetails] = useState(false);
   const wallet = useWallet();
   const isProdNetwork = useIsProdNetwork();
+  const {t} = useTranslation();
   const [swapInfo] = useAsyncData(async () => {
     if (!showSwapAddress || !isProdNetwork) {
       return null;
@@ -706,7 +710,7 @@ function BalanceListItemDetails({
           <div>
             <Typography variant="body2">
               <Link href={'#'} onClick={(e) => setExportAccDialogOpen(true)}>
-                Export
+                {t('Export')}
               </Link>
             </Typography>
           </div>
@@ -741,7 +745,7 @@ function BalanceListItemDetails({
             startIcon={<ReceiveIcon />}
             onClick={() => setDepositDialogOpen(true)}
           >
-            deposit 
+            {t('deposit')} 
           </Button>
           <Button
             variant="outlined"
@@ -749,7 +753,8 @@ function BalanceListItemDetails({
             startIcon={<SendIcon />}
             onClick={() => setSendDialogOpen(true)}
           >
-            withdraw
+             
+            {t('withdraw')} 
           </Button>
           {localStorage.getItem('warning-close-account') &&
           mint &&

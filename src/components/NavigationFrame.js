@@ -52,9 +52,14 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import PaymentIcon from '@material-ui/icons/Payment';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 import IslamicIcon from './IslamicIcon';
 import { Link } from "react-router-dom";
+import InputLabel from '@material-ui/core/Select';
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -92,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '1600',
     width: '100%', 
     elevation: '0',
-    height: '14%'
+    height: '8%'
 
   },
   drawer: {
@@ -125,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavigationFrame({ children }) {
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
- 
+  const {t} = useTranslation();
 
 
 
@@ -153,6 +158,15 @@ export default function NavigationFrame({ children }) {
       path: '/Borrow' 
     },
   ];
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState("id");
+
+  const handleLangChange = evt => {
+    const lang = evt.target.value;
+    console.log(lang);
+    setLanguage(lang);
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <>
@@ -170,9 +184,7 @@ export default function NavigationFrame({ children }) {
               fontSize: '14px',
             }}
           >
-            <Typography>
-              Beware this site is used for lending money under the Islamic Law
-            </Typography>
+          
           </div>
         )}
         <Toolbar>
@@ -182,10 +194,15 @@ export default function NavigationFrame({ children }) {
         <br/>
           <Typography variant="h6" className={classes.title} component="h1">
                     
-            {isExtensionWidth ? 'JODC' : 'Islamic Crypto Funding'}
+            {t('IslamicCryptoFunding')}
 
           </Typography>
           <NavigationButtons />
+          <select onChange={handleLangChange} value={language}>
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+           
+          </select>
         </Toolbar>
       </AppBar>
       
@@ -417,6 +434,7 @@ function NetworkSelector() {
 }
 
 function WalletSelector() {
+  const {t} = useTranslation();
   const {
     accounts,
     derivedAccounts,
@@ -434,7 +452,7 @@ function WalletSelector() {
   const [deleteMnemonicOpen, setDeleteMnemonicOpen] = useState(false);
   const [exportMnemonicOpen, setExportMnemonicOpen] = useState(false);
   const classes = useStyles();
-
+ 
   if (accounts.length === 0) {
     return null;
   }
@@ -445,7 +463,7 @@ function WalletSelector() {
         onClose={() => setAddHardwareWalletDialogOpen(false)}
         onAdd={({ publicKey, derivationPath, account, change }) => {
           setHardwareWalletAccount({
-            name: 'Hardware wallet',
+            name: t('HardwareWallet'),
             publicKey,
             importedAccount: publicKey.toString(),
             ledger: true,
@@ -492,11 +510,11 @@ function WalletSelector() {
           onClick={(e) => setAnchorEl(e.target)}
           className={classes.button}
         >
-          Account
+          {t("Account")}
         </Button>
       </Hidden>
       <Hidden smUp>
-        <Tooltip title="Select Account" arrow>
+        <Tooltip title= {t('SelectAccount')} arrow>
           <IconButton color="inherit" onClick={(e) => setAnchorEl(e.target)}>
             <AccountIcon />
           </IconButton>
@@ -536,7 +554,7 @@ function WalletSelector() {
           <ListItemIcon className={classes.menuItemIcon}>
             <UsbIcon fontSize="small" />
           </ListItemIcon>
-          Import Hardware Wallet
+          {t('ImportHardwareWallet')}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -547,7 +565,7 @@ function WalletSelector() {
           <ListItemIcon className={classes.menuItemIcon}>
             <AddIcon fontSize="small" />
           </ListItemIcon>
-          Add Account
+          {t('AddAccount')}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -558,7 +576,7 @@ function WalletSelector() {
           <ListItemIcon className={classes.menuItemIcon}>
             <ImportExportIcon fontSize="small" />
           </ListItemIcon>
-          Export Mnemonic
+          {t('ExportMnemonic')}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -569,7 +587,7 @@ function WalletSelector() {
           <ListItemIcon className={classes.menuItemIcon}>
             <ExitToApp fontSize="small" />
           </ListItemIcon>
-          {'Delete Mnemonic & Log Out'}
+          {t('DeleteMnemonicLogOut')}
         </MenuItem>
       </Menu>
     </>
@@ -586,10 +604,12 @@ const useFooterStyles = makeStyles((theme) => ({
 
 function Footer() {
   const classes = useFooterStyles();
+  const {t} = useTranslation();
+
   return (
     <footer className={classes.footer}>
       <Typography>
-        Raya Software Limited (Copyrights Reserved)
+        {t('RayaSoftwareSystems')} {" © حقوق الطبع والنشر  "}
       </Typography>
     </footer>
   );

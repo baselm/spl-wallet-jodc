@@ -29,11 +29,14 @@ import { useCallAsync } from '../utils/notifications';
 import Link from '@material-ui/core/Link';
 import { validateMnemonic } from 'bip39';
 import DialogForm from '../components/DialogForm';
+import { useTranslation, Trans } from "react-i18next";
+import "../translations/i18n";
 
+//const t = useTranslation();
 export default function LoginPage() {
   const [restore, setRestore] = useState(false);
   const [hasLockedMnemonicAndSeed, loading] = useHasLockedMnemonicAndSeed();
-
+  const {t} = useTranslation();
   if (loading) {
     return null;
   }
@@ -47,10 +50,13 @@ export default function LoginPage() {
           {hasLockedMnemonicAndSeed ? <LoginForm /> : <CreateWalletForm />}
           <br />
           <Link style={{ cursor: 'pointer' }} onClick={() => setRestore(true)}>
-            Restore existing wallet
+          {t("Restoreexistingwallet")}
           </Link>
+          
         </>
+        
       )}
+     
     </Container>
   );
 }
@@ -102,6 +108,8 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
   const [downloaded, setDownloaded] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [seedCheck, setSeedCheck] = useState('');
+  const { t } = useTranslation();
+
 
   const downloadMnemonic = (mnemonic) => {
     const url = window.URL.createObjectURL(new Blob([mnemonic]));
@@ -117,14 +125,13 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
       <Card>
         <CardContent>
           <Typography variant="h5" gutterBottom>
-            Create New Wallet
+            {t('CreateNewWallet')}
           </Typography>
           <Typography paragraph>
-            Create a new wallet to hold Solana and SPL tokens.
+            {t('CreateNewWalletBody')}
           </Typography>
           <Typography>
-            Please write down the following twenty four words and keep them in a
-            safe place:
+            {t('SaveSeed')}
           </Typography>
           {mnemonicAndSeed ? (
             <TextField
@@ -133,21 +140,17 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
               multiline
               margin="normal"
               value={mnemonicAndSeed.mnemonic}
-              label="Seed Words"
+              label={t('SeedWords')}
               onFocus={(e) => e.currentTarget.select()}
             />
           ) : (
             <LoadingIndicator />
           )}
           <Typography paragraph>
-            Your private keys are only stored on your current computer or device.
-            You will need these words to restore your wallet if your browser's
-            storage is cleared or your device is damaged or lost.
+            {t('CreateNewWalletBody3')}
           </Typography>
           <Typography paragraph>
-            By default, sollet will use <code>m/44'/501'/0'/0'</code> as the
-            derivation path for the main wallet. To use an alternative path, try
-            restoring an existing wallet.
+            {t('CreateNewWalletBody4')}
           </Typography>
           <FormControlLabel
             control={
@@ -157,20 +160,20 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
                 onChange={(e) => setConfirmed(e.target.checked)}
               />
             }
-            label="I have saved these words in a safe place."
+            label= {t('CreateNewWalletLabel1')}
           />
           <Typography paragraph>
           <Button variant="contained" color="primary" style={{ marginTop: 20 }} onClick={() => {
             downloadMnemonic(mnemonicAndSeed?.mnemonic);
             setDownloaded(true);
           }}>
-            Download Backup Mnemonic File (Required)
+            {t('CreateNewWalletLabel2')}
           </Button>
           </Typography>
         </CardContent>
         <CardActions style={{ justifyContent: 'flex-end' }}>
           <Button color="primary" disabled={!confirmed || !downloaded} onClick={() => setShowDialog(true)}>
-            Continue
+            {t('Continue')}
           </Button>
         </CardActions>
       </Card>
@@ -188,10 +191,10 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
               flexDirection: 'column',
             }}
           >
-            Please re-enter your seed phrase to confirm that you have saved it.
+            {t('renewSeedWords')}
           </div>
           <TextField
-            label={`Please type your seed phrase to confirm`}
+            label= {t('renewSeedWordsLabel1')}
             fullWidth
             variant="outlined"
             margin="normal"
@@ -200,13 +203,13 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
           />
         </DialogContentText>
         <DialogActions>
-          <Button onClick={() => setShowDialog(false)}>Close</Button>
+          <Button onClick={() => setShowDialog(false)}>{t('Close')}</Button>
           <Button
             type="submit"
             color="secondary"
             disabled={normalizeMnemonic(seedCheck) !== mnemonicAndSeed?.mnemonic}
           >
-            Continue
+            {t('Continue')}
           </Button>
         </DialogActions>
       </DialogForm>
@@ -217,21 +220,22 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
 function ChoosePasswordForm({ goBack, onSubmit }) {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const {t} = useTranslation();
 
   return (
     <Card>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Choose a Password (Optional)
+          {t("ChoosePassword")}
         </Typography>
         <Typography>
-          Optionally pick a password to protect your wallet.
+           {t("PickPassword")}
         </Typography>
         <TextField
           variant="outlined"
           fullWidth
           margin="normal"
-          label="New Password"
+          label= {t('NewPassword')}
           type="password"
           autoComplete="new-password"
           value={password}
@@ -241,25 +245,24 @@ function ChoosePasswordForm({ goBack, onSubmit }) {
           variant="outlined"
           fullWidth
           margin="normal"
-          label="Confirm Password"
+          label= {t('passwordConfirm')}
           type="password"
           autoComplete="new-password"
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <Typography>
-          If you forget your password you will need to restore your wallet using
-          your seed words.
+        {t('PasswordNote')}
         </Typography>
       </CardContent>
       <CardActions style={{ justifyContent: 'space-between' }}>
-        <Button onClick={goBack}>Back</Button>
+        <Button onClick={goBack}>{t('Back')}</Button>
         <Button
           color="primary"
           disabled={password !== passwordConfirm}
           onClick={() => onSubmit(password)}
         >
-          Create Wallet
+          {t('CreateNewWallet')}
         </Button>
       </CardActions>
     </Card>
@@ -270,11 +273,12 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const callAsync = useCallAsync();
+  const {t} = useTranslation();
 
   const submit = () => {
     callAsync(loadMnemonicAndSeed(password, stayLoggedIn), {
-      progressMessage: 'Unlocking wallet...',
-      successMessage: 'Wallet unlocked',
+      progressMessage: t('UnlockingWallet'),
+      successMessage: t('WalletUnlocked'),
     });
   }
   const submitOnEnter = (e) => {
@@ -286,18 +290,20 @@ function LoginForm() {
   }
   const setPasswordOnChange = (e) => setPassword(e.target.value);
   const toggleStayLoggedIn = (e) => setStayLoggedIn(e.target.checked);
+ 
 
   return (
     <Card>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Unlock Wallet
+          {t("UnlockWallet")}
+      
         </Typography>
         <TextField
           variant="outlined"
           fullWidth
           margin="normal"
-          label="Password"
+          label={t("Password")}
           type="password"
           autoComplete="current-password"
           value={password}
@@ -311,12 +317,12 @@ function LoginForm() {
               onChange={toggleStayLoggedIn}
             />
           }
-          label="Keep wallet unlocked"
+          label= {t("Keepwalletunlocked")}
         />
       </CardContent>
       <CardActions style={{ justifyContent: 'flex-end' }}>
         <Button color="primary" onClick={submit}>
-          Unlock
+          {t("UNLOCK")}
         </Button>
       </CardActions>
     </Card>
@@ -332,7 +338,9 @@ function RestoreWalletForm({ goBack }) {
 
   const mnemonic = normalizeMnemonic(rawMnemonic);
   const isNextBtnEnabled =
-    password === passwordConfirm && validateMnemonic(mnemonic);
+  password === passwordConfirm && validateMnemonic(mnemonic);
+  const { t } = useTranslation();
+
   const displayInvalidMnemonic = validateMnemonic(mnemonic) === false && mnemonic.length > 0;
   return (
     <>
@@ -347,20 +355,18 @@ function RestoreWalletForm({ goBack }) {
         <Card>
           <CardContent>
             <Typography variant="h5" gutterBottom>
-              Restore Existing Wallet
+              {t("Restoreexistingwallet")}
             </Typography>
             <Typography>
-              Restore your wallet using your twelve or twenty-four seed words.
-              Note that this will delete any existing wallet on this device.
+            {t("restorebody1")}
             </Typography>
             <br />
             <Typography fontWeight="fontWeightBold">
-              <b>Do not enter your hardware wallet seedphrase here.</b> Hardware
-              wallets can be optionally connected after a web wallet is created.
+              {t("restorebody2")}
             </Typography>
             {displayInvalidMnemonic && (
                <Typography fontWeight="fontWeightBold" style={{ color: 'red' }}>
-                 Mnemonic validation failed. Please enter a valid BIP 39 seed phrase.
+                 {t("displayInvalidMnemonic")}
                </Typography>
             )}
             <TextField
@@ -369,7 +375,7 @@ function RestoreWalletForm({ goBack }) {
               multiline
               rows={3}
               margin="normal"
-              label="Seed Words"
+              label={t("SeedWords")}
               value={rawMnemonic}
               onChange={(e) => setRawMnemonic(e.target.value)}
             />
@@ -377,7 +383,7 @@ function RestoreWalletForm({ goBack }) {
               variant="outlined"
               fullWidth
               margin="normal"
-              label="New Password (Optional)"
+              label={t("NewPasswordO")}
               type="password"
               autoComplete="new-password"
               value={password}
@@ -387,7 +393,7 @@ function RestoreWalletForm({ goBack }) {
               variant="outlined"
               fullWidth
               margin="normal"
-              label="Confirm Password"
+              label={t("passwordConfirm")}
               type="password"
               autoComplete="new-password"
               value={passwordConfirm}
@@ -395,7 +401,7 @@ function RestoreWalletForm({ goBack }) {
             />
           </CardContent>
           <CardActions style={{ justifyContent: 'space-between' }}>
-            <Button onClick={goBack}>Cancel</Button>
+            <Button onClick={goBack}>{t('Cancel')}</Button>
             <Button
               color="primary"
               disabled={!isNextBtnEnabled}
@@ -406,7 +412,7 @@ function RestoreWalletForm({ goBack }) {
                 });
               }}
             >
-              Next
+              {t('Next')}
             </Button>
           </CardActions>
         </Card>
@@ -438,7 +444,7 @@ function DerivedAccounts({ goBack, mnemonic, seed, password }) {
       ),
     );
   }
-
+  const {t} = useTranslation();
   return (
     <Card>
       <AccountsSelector
@@ -448,9 +454,9 @@ function DerivedAccounts({ goBack, mnemonic, seed, password }) {
         setDPathMenuItem={setDPathMenuItem}
       />
       <CardActions style={{ justifyContent: 'space-between' }}>
-        <Button onClick={goBack}>Back</Button>
+        <Button onClick={goBack}>{t('Back')}</Button>
         <Button color="primary" onClick={submit}>
-          Restore
+          {t('Restore')}
         </Button>
       </CardActions>
     </Card>
@@ -464,7 +470,9 @@ export function AccountsSelector({
   dPathMenuItem,
   setDPathMenuItem,
   onClick,
-}) {
+}) 
+{
+  const {t} = useTranslation();
   return (
     <CardContent>
       <div
@@ -474,7 +482,7 @@ export function AccountsSelector({
         }}
       >
         <Typography variant="h5" gutterBottom>
-          Derivable Accounts
+          {t('DerivableAccounts')}
         </Typography>
         <FormControl variant="outlined">
           <Select
