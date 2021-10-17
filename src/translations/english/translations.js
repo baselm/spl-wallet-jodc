@@ -81,7 +81,13 @@ export const TRANSLATIONS_EN = {
     airdropNote2:"Receive some devnet SOL for free.",
     testTokenNote1:"Generate and receive balances in a new test token. Requires SOL balance",
     testTokenNote2:"Generate and receive balances in a new test token",
-    airdropmsg:"Success! Please wait up to 30 seconds for the SOL tokens to appear in your wallet."
+    airdropmsg:"Success! Please wait up to 30 seconds for the SOL tokens to appear in your wallet.",
+    sendingTransaction:"Sending transaction...",
+    confirmingTransaction: "Confirming transaction...",
+    transactionConfirmed:"Transaction confirmed",
+    submitting:"Submitting...",
+    Success:"Success"
+    
 
 
 
