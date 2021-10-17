@@ -1,6 +1,7 @@
 import { clusterApiUrl } from '@solana/web3.js';
 import { MAINNET_URL, MAINNET_BACKUP_URL } from '../utils/connection';
 
+
 export const CLUSTERS = [
   {
     name: 'mainnet-beta',

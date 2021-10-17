@@ -15,6 +15,7 @@ import {
 import { createAndInitializeMint } from '../utils/tokens';
 import { Tooltip, Button } from '@material-ui/core';
 import React from 'react';
+import {useTranslation } from "react-i18next";
 
 export default function DebugButtons() {
   const wallet = useWallet();
@@ -23,6 +24,7 @@ export default function DebugButtons() {
   const balanceInfo = useBalanceInfo(wallet.publicKey);
   const [sendTransaction, sending] = useSendTransaction();
   const callAsync = useCallAsync();
+  const {t} = useTranslation();
 
   let { amount } = balanceInfo || {};
 
@@ -35,7 +37,7 @@ export default function DebugButtons() {
           refreshAccountInfo(wallet.connection, wallet.publicKey);
         },
         successMessage:
-          'Success! Please wait up to 30 seconds for the SOL tokens to appear in your wallet.',
+          t('airdropmsg'),
       },
     );
   }
@@ -68,8 +70,8 @@ export default function DebugButtons() {
       <Tooltip
         title={
           requestAirdropDisabled
-            ? 'Receive some devnet SOL for free. Only enabled on the devnet'
-            : 'Receive some devnet SOL for free'
+            ? t('airdropNote1')
+            : t('airdropNote2')
         }
       >
         <span>
@@ -79,15 +81,15 @@ export default function DebugButtons() {
             onClick={requestAirdrop}
             disabled={requestAirdropDisabled}
           >
-            Request Airdrop
+            {t('RequestAirdrop')}
           </Button>
         </span>
       </Tooltip>
       <Tooltip
         title={
           noSol
-            ? 'Generate and receive balances in a new test token. Requires SOL balance'
-            : 'Generate and receive balances in a new test token'
+            ? t('testTokenNote1')
+            : t('testTokenNote2')
         }
       >
         <span>
@@ -98,7 +100,8 @@ export default function DebugButtons() {
             disabled={sending || noSol}
             style={{ marginLeft: spacing }}
           >
-            Mint Test Token
+
+            {t('MintTestToken')}
           </Button>
         </span>
       </Tooltip>

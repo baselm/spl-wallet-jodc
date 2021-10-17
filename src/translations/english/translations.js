@@ -70,7 +70,19 @@ export const TRANSLATIONS_EN = {
     AddressNoFund:"This address has no funds. Are you sure it's correct?",
     AddressReciveNote:"This address can be used to receive",
     DepositAccount:"Deposit Account",
-    Copied:"Copied"
+    Copied:"Copied",
+    Network:'Network',
+    SelectNetwork:"Select Network",
+    MainnetBetaBackup:"Mainnet Beta Backup",
+    Devnet:"Devnet",
+    RequestAirdrop:"Request Airdrop",
+    MintTestToken:"Mint Test Token",
+    airdropNote1:"Receive some devnet SOL for free. Only enabled on the devnet",
+    airdropNote2:"Receive some devnet SOL for free.",
+    testTokenNote1:"Generate and receive balances in a new test token. Requires SOL balance",
+    testTokenNote2:"Generate and receive balances in a new test token",
+    airdropmsg:"Success! Please wait up to 30 seconds for the SOL tokens to appear in your wallet."
+
 
 
     

@@ -58,7 +58,7 @@ export const TRANSLATIONS_AR = {
     serum:"serum عرض على  شبكةالسيروم",
     ethereum:"عرض على شبكة Ethereum",
     ViewDetails:"عرض التفاصيل",
-    MintAddress:"عنوان Mint",
+    MintAddress:" حساب صك العملة",
     tokenInfo:"معلومات العملة",
     Delete:"حذف",
     Send:"إرسال",
@@ -69,7 +69,21 @@ export const TRANSLATIONS_AR = {
     AddressNoFund:"هذا العنوان ليس له رصيد. هل أنت متأكد من أنها عملية صحيحة؟",
     AddressReciveNote:"يمكن استخدام هذا الحساب لتلقي",
     DepositAccount:"حساب الإيداع",
-    Copied:"تم نسخ"
+    Copied:"تم نسخ",
+    Network:'شبكة الاتصال',
+    SelectNetwork:"اختر شبكة الاتصال",
+    MainnetBetaBackup:"شبكة سولانا الرئيسية",
+    Devnet:"ar Devnet",
+    RequestAirdrop:"طلب عملة تجريبية",
+    MintTestToken:"صك عملة تجريبية",
+    airdropNote1:"احصل على بعض عملات سولانا مجانًا. هذه العملية متاحة فقط على شبكة devnet",
+    airdropNote2:"احصل على بعض عملات سولانا مجانًا",
+    testTokenNote1:"إنشاء واستلام أرصدة في عملة اختبار جديدة. يتطلب رصيد سولانا فقط",
+    testTokenNote2:"إنشاء واستلام أرصدة في عملة اختبار جديدة",
+    airdropmsg:"إجراء ناجح ,يرجى الانتظار حتى 30 ثانية حتى يظهر الرصيد الجديد في محفظتك"
+
+
+
 
 
 

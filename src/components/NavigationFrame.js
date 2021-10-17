@@ -362,6 +362,7 @@ function NetworkSelector() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [addCustomNetworkOpen, setCustomNetworkOpen] = useState(false);
   const classes = useStyles();
+  const {t} = useTranslation();
   
 
   return (
@@ -380,11 +381,11 @@ function NetworkSelector() {
           onClick={(e) => setAnchorEl(e.target)}
           className={classes.button}
         >
-          {cluster?.label ?? 'Network'}
+          {cluster?.label ?? t('Network')}
         </Button>
       </Hidden>
       <Hidden smUp>
-        <Tooltip title="Select Network" arrow>
+        <Tooltip title= {t('SelectNetwork')} arrow>
           <IconButton color="inherit" onClick={(e) => setAnchorEl(e.target)}>
             <SolanaIcon />
           </IconButton>
@@ -415,19 +416,12 @@ function NetworkSelector() {
               ) : null}
             </ListItemIcon>
             {cluster.name === 'mainnet-beta-backup'
-              ? 'Mainnet Beta Backup'
+              ? t('MainnetBetaBackup')
               : cluster.apiUrl}
+              
           </MenuItem>
         ))}
-        <MenuItem
-          onClick={() => {
-            setCustomNetworkOpen(true);
-          }}
-        >
-          <ListItemIcon className={classes.menuItemIcon}>
-          </ListItemIcon>
-          {customClusterExists() ? 'Edit Custom Endpoint' : 'Add Custom Endpoint'}
-        </MenuItem>
+       
       </Menu>
     </>
   );
