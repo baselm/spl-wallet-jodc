@@ -45,6 +45,7 @@ export const TRANSLATIONS_EN = {
     ImportHardwareWallet:"Import Hardware Wallet",
     HardwareWallet:"Hardware Wallet",
     AddAccount:"Add Account",
+    accountName:"Account Name",
     ExportMnemonic:"Export Mnemonic",
     DeleteMnemonicLogOut:"Delete Mnemonic & Log Out",
     RayaSoftwareSystems:"Raya Software Systems",
@@ -86,7 +87,15 @@ export const TRANSLATIONS_EN = {
     confirmingTransaction: "Confirming transaction...",
     transactionConfirmed:"Transaction confirmed",
     submitting:"Submitting...",
-    Success:"Success"
+    Success:"Success",
+    Importprivatekey:"Import private key",
+    Pasteyourprivate:"Paste your private key here",
+    Add:"Add",
+    Close:"Close",
+    editAccount:"Edit Account",
+    save:"Save",
+    mainAccount: "Main Account",
+
     
 
 

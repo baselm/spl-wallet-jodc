@@ -244,7 +244,7 @@ export default function BalancesList() {
           {selectedAccount &&
             selectedAccount.name !== 'Main account' &&
             selectedAccount.name !== 'Hardware wallet' && (
-              <Tooltip title="Edit Account Name" arrow>
+              <Tooltip title={t('editAccount')} arrow>
                 <IconButton
                   size={iconSize}
                   onClick={() => setShowEditAccountNameDialog(true)}

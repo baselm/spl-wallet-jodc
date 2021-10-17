@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-
+import { useTranslation } from 'react-i18next';
 export default function EditAccountNameDialog({
   open,
   oldName,
@@ -13,6 +13,7 @@ export default function EditAccountNameDialog({
   onEdit,
 }) {
   const [name, setName] = useState(oldName);
+  const {t} = useTranslation();
   return (
     <DialogForm
       open={open}
@@ -21,7 +22,7 @@ export default function EditAccountNameDialog({
       onSubmit={() => onEdit(name.trim())}
       fullWidth
     >
-      <DialogTitle>Edit Account</DialogTitle>
+      <DialogTitle>{t('editAccount')}</DialogTitle>
       <DialogContent>
         <div
           style={{
@@ -30,7 +31,7 @@ export default function EditAccountNameDialog({
           }}
         >
           <TextField
-            label="Name"
+            label= {t('accountName')}
             fullWidth
             variant="outlined"
             margin="normal"
@@ -40,9 +41,9 @@ export default function EditAccountNameDialog({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>{t('Close')}</Button>
         <Button type="submit" color="primary">
-          Save
+          {t('save')}
         </Button>
       </DialogActions>
     </DialogForm>

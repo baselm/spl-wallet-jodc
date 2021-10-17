@@ -29,7 +29,7 @@ import { useCallAsync } from '../utils/notifications';
 import Link from '@material-ui/core/Link';
 import { validateMnemonic } from 'bip39';
 import DialogForm from '../components/DialogForm';
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import "../translations/i18n";
 
 //const t = useTranslation();

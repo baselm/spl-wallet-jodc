@@ -85,7 +85,17 @@ export const TRANSLATIONS_AR = {
     confirmingTransaction: "جاري تأكيد عملية التحويل ...",
     transactionConfirmed:"تم تأكيد عملية التحويل",
     submitting:"إرسال ...",
-    Success:"عملية ناجحة"
+    Success:"عملية ناجحة",
+    accountName:"إسم الحساب",
+    Importprivatekey:"استيراد مفتاح خاص لمحفظة التشفير الخاصة بك",
+    Pasteyourprivate:"الصق المفتاح الخاص لمحفظة التشفير هنا",
+    Add:"أضف",
+    Close:"أغلق",
+    editAccount:"تحرير إسم الحساب",
+    save:"احفظ",
+    mainAccount: "الحساب الرئيسي"
+
+
 
 
 

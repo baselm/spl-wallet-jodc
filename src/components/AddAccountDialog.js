@@ -9,7 +9,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
 import { decodeAccount } from '../utils/utils';
 import DialogForm from './DialogForm';
-
+import {useTranslation} from "react-i18next"; 
 export default function AddAccountDialog({ open, onAdd, onClose }) {
   const [name, setName] = useState('');
   const [isImport, setIsImport] = useState(false);
@@ -19,6 +19,8 @@ export default function AddAccountDialog({ open, onAdd, onClose }) {
     ? decodeAccount(importedPrivateKey)
     : undefined;
   const isAddEnabled = isImport ? name && importedAccount !== undefined : name;
+  const {t} = useTranslation();
+
 
   return (
     <DialogForm
@@ -32,7 +34,7 @@ export default function AddAccountDialog({ open, onAdd, onClose }) {
       onSubmit={() => onAdd({ name, importedAccount })}
       fullWidth
     >
-      <DialogTitle>Add account</DialogTitle>
+      <DialogTitle>{t('AddAccount')}</DialogTitle>
       <DialogContent style={{ paddingTop: 16 }}>
         <div
           style={{
@@ -41,7 +43,7 @@ export default function AddAccountDialog({ open, onAdd, onClose }) {
           }}
         >
           <TextField
-            label="Name"
+            label= {t('accountName')}
             fullWidth
             variant="outlined"
             margin="normal"
@@ -56,12 +58,12 @@ export default function AddAccountDialog({ open, onAdd, onClose }) {
                   onChange={() => setIsImport(!isImport)}
                 />
               }
-              label="Import private key"
+              label= {t('Importprivatekey')}
             />
           </FormGroup>
           {isImport && (
             <TextField
-              label="Paste your private key here"
+              label= {t('Pasteyourprivate')}
               fullWidth
               type="password"
               value={importedPrivateKey}
@@ -73,9 +75,9 @@ export default function AddAccountDialog({ open, onAdd, onClose }) {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>{t('Close')}</Button>
         <Button type="submit" color="primary" disabled={!isAddEnabled}>
-          Add
+          {t("Add")}
         </Button>
       </DialogActions>
     </DialogForm>

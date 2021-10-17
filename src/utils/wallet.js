@@ -28,7 +28,7 @@ import { useUnlockedMnemonicAndSeed, walletSeedChanged } from './wallet-seed';
 import { WalletProviderFactory } from './walletProvider/factory';
 import { getAccountFromSeed } from './walletProvider/localStorage';
 import { useSnackbar } from 'notistack';
-
+import { useTranslation } from 'react-i18next';
 const DEFAULT_WALLET_SELECTOR = {
   walletIndex: 0,
   importedPubkey: undefined,
@@ -279,13 +279,14 @@ export function WalletProvider({ children }) {
       setWalletNames(getWalletNames());
     }
   }
-
+  const {t}= useTranslation();
   const [accounts, derivedAccounts] = useMemo(() => {
     if (!seed) {
       return [[], []];
     }
 
     const seedBuffer = Buffer.from(seed, 'hex');
+    
     const derivedAccounts = [...Array(walletCount).keys()].map((idx) => {
       let address = getAccountFromSeed(seedBuffer, idx, derivationPath)
         .publicKey;
@@ -298,7 +299,7 @@ export function WalletProvider({ children }) {
         },
         isSelected: walletSelector.walletIndex === idx,
         address,
-        name: idx === 0 ? 'Main account' : name || `Account ${idx}`,
+        name: idx === 0 ? t('mainAccount') : name || `Account ${idx}`,
       };
     });
 
