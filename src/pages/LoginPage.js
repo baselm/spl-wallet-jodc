@@ -206,7 +206,8 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
           <Button onClick={() => setShowDialog(false)}>{t('Close')}</Button>
           <Button
             type="submit"
-            color="secondary"
+            variant="contained" 
+            color="success"
             disabled={normalizeMnemonic(seedCheck) !== mnemonicAndSeed?.mnemonic}
           >
             {t('Continue')}
