@@ -75,6 +75,41 @@ class PriceStore {
         return resolve(this.cache[marketName]);
       }
     });
+
+  }
+   async getPoolVolume(connection, marketName): Promise<number | undefined> {
+    return new Promise((resolve, reject) => {
+     
+      if (this.cache[marketName] === undefined) {
+        fetch(`https://serum-api.bonfida.com/volumes/SOLUSDT`).then(
+          (resp) => {
+           
+            resp.json().then((resp) => {
+              
+              const vol = JSON.stringify(resp.data[0].volumeUsd) ;
+               console.log("vol "+ vol)
+              
+              if (resp.data === null || resp.data === null) {
+                resolve(undefined);
+              } else if (
+                resp.data === 0 &&
+                resp.data === 0
+              ) {
+                resolve(undefined);
+              } else {
+                const vol = resp.data[0].volumeUsd ;
+                  console.log("vol "+ vol)
+                this.cache[marketName] = vol;
+                resolve(this.cache[marketName]);
+              }
+              
+            });
+          },
+        );
+      } else {
+        return resolve(this.cache[marketName]);
+      }
+    });
   }
 }
 

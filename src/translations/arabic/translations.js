@@ -90,10 +90,14 @@ export const TRANSLATIONS_AR = {
     Importprivatekey:"استيراد مفتاح خاص لمحفظة التشفير الخاصة بك",
     Pasteyourprivate:"الصق المفتاح الخاص لمحفظة التشفير هنا",
     Add:"أضف",
-    Close:"أغلق",
     editAccount:"تحرير إسم الحساب",
     save:"احفظ",
-    mainAccount: "الحساب الرئيسي"
+    mainAccount: "الحساب الرئيسي",
+    CurrentMarketSize:"حجم السوق الحالي",
+    TotalBorrowed:"إجمالي القتراض ",
+    lentout:'% أقرضت الآن',
+    marketComposition:"تكوين السوق" ,
+    borrowing:"يمكنك اقتراض أموال FIAT عن طريق وضع رمز التشفير الخاص بك كضامن لسداد القرض"
 
 
 

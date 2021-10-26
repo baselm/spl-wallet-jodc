@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
-
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled, useTheme } from '@material-ui/core/styles';
 import { useConnectionConfig } from '../utils/connection';
 import {CLUSTERS, clusterForEndpoint, getClusters, addCustomCluster, customClusterExists} from '../utils/clusters';
 import Button from '@material-ui/core/Button';
@@ -17,9 +16,12 @@ import AddIcon from '@material-ui/icons/Add';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import UsbIcon from '@material-ui/icons/Usb';
+import MenuIcon from '@material-ui/icons/Menu';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SolanaIcon from './SolanaIcon';
 import CodeIcon from '@material-ui/icons/Code';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -28,6 +30,8 @@ import AddAccountDialog from './AddAccountDialog';
 import DeleteMnemonicDialog from './DeleteMnemonicDialog';
 import AddHardwareWalletDialog from './AddHarwareWalletDialog';
 import { ExportMnemonicDialog } from './ExportAccountDialog.js';
+import { useWallet, WalletProvider } from '../utils/wallet';
+
 import {
   isExtension,
   isExtensionPopup,
@@ -60,11 +64,19 @@ import IslamicIcon from './IslamicIcon';
 import { Link } from "react-router-dom";
 import InputLabel from '@material-ui/core/Select';
 import { useTranslation } from "react-i18next";
-
+import Paper from '@material-ui/core/Paper';
 const drawerWidth = 240;
 
-
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 const useStyles = makeStyles((theme) => ({
+  /* @noflip */
   content: {
     flexGrow: 1,
     paddingBottom: theme.spacing(3),
@@ -81,9 +93,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 3,
   },
   button: {
+    /* @noflip */
     marginLeft: theme.spacing(1),
   },
+  toolbar: theme.mixins.toolbar,
   menuItemIcon: {
+    /* @noflip */
     minWidth: 32,
   },
   badge: {
@@ -93,18 +108,18 @@ const useStyles = makeStyles((theme) => ({
     width: 16,
   },
   appBar: {
-    postion: 'absolute',
-    zIndex: '1600',
-    width: '100%', 
-    elevation: '0',
-    height: '8%'
+    /* @noflip */
+    postion: 'fixed',
+    
 
   },
   drawer: {
+    /* @noflip */
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
+    /* @noflip */
     position: "fixed",
     width: drawerWidth,
     borderRadius: 0,
@@ -112,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.main,
     borderBottom: "none",
     top: theme.spacing(8), // push content down to fix scrollbar position
-    height: `calc(100% - ${theme.spacing(8)}px)` // subtract appbar height
+      // subtract appbar height
   },
   drawerContent: {
     overflow: "auto",
@@ -121,17 +136,26 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 4,
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar:
+  /* @noflip */
+   theme.mixins.toolbar,
 
 }));
-
+const rtlLanguages = ["ar"];
+function setPageDirection(language) {
+  console.log("Lan language"+language)
+  const dir = rtlLanguages.includes(language) ? "rtl" : "ltr"
+  console.log("Lan dir"+dir)
+  document.documentElement.dir = dir
+}
 export default function NavigationFrame({ children }) {
+  const theme = useTheme();
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
   const {t} = useTranslation();
-
+  const wallet = useWallet();
 
 
   const menuItems = [
@@ -147,9 +171,9 @@ export default function NavigationFrame({ children }) {
       path: '/Dashboard' 
     },
     { 
-      text: 'DemoDashboard', 
+      text: 'Invest', 
       icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 
-      path: '/DemoDashboard' 
+      path: '/Invest' 
     },
    
     { 
@@ -158,21 +182,43 @@ export default function NavigationFrame({ children }) {
       path: '/Borrow' 
     },
   ];
-  const { i18n } = useTranslation();
-  const [language, setLanguage] = useState("id");
+    const { i18n } = useTranslation();
+    const [language, setLanguage] = useState("id");
+    
+    const [mobileOpen, setMobileOpen] = useState(false);
+    console.log(mobileOpen.toString() + "<-- mobileOpen")
+    if (!wallet)
+    {
+      console.log('no walett'); 
+      
+    }else
+    {
+      console.log(' walett found'); 
+    }
+    const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+      console.log(mobileOpen.toString() + "<-- mobileOpen")
+      };
+    const container = window !== undefined ? () => window().document.body : undefined;
 
-  const handleLangChange = evt => {
+    const handleLangChange = evt => {
     const lang = evt.target.value;
     console.log(lang);
     setLanguage(lang);
     i18n.changeLanguage(lang);
+    setPageDirection(lang);
   };
-
+  
+  
   return (
     <>
 
-      <AppBar position="static" className={classes.appBar} elevation={0} >
-
+      <AppBar position="fixed" className={classes.appBar} 
+          sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }} >
+          
         {!isExtension && (
           <div
             style={{
@@ -188,36 +234,68 @@ export default function NavigationFrame({ children }) {
           </div>
         )}
         <Toolbar>
-        <IconButton color="inherit">
-            <SolanaIcon />
-          </IconButton>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+           </IconButton>
+         
+          
+
         <br/>
           <Typography variant="h6" className={classes.title} component="h1">
                     
             {t('IslamicCryptoFunding')}
+            
 
           </Typography>
           <NavigationButtons />
           <select onChange={handleLangChange} value={language}>
+          <option value=" "> </option>
             <option value="en">EN</option>
             <option value="ar">AR</option>
            
           </select>
         </Toolbar>
       </AppBar>
-      
+      <Paper>
+        <div className={classes.toolbar} />
+         
+      </Paper>
       <Drawer
-      variant="permanent"
+      container={container}
+      
+      variant="persistent"
       anchor="left"
-         elevation={0}
-        PaperProps={{
-          variant: "outlined"
+      open={!mobileOpen && wallet}
+      onClose={handleDrawerToggle}
+      elevation={0}
+      PaperProps={{
+      variant: "outlined"
         }}
         classes={{
           paper: classes.drawerPaper
         }}
-         
+      containerStyle={{height: 'calc(100% - 64px)', top: 64}}
+      ModalProps={{
+        keepMounted: true, // Better open performance on mobile.
+      }}
+      sx={{
+        display: { xs: 'block', sm: 'none' },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+      }}  
+       
       >
+      <DrawerHeader>
+       <IconButton color="secondary" fontSize="large" onClick={handleDrawerToggle}>
+         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+       </IconButton>
+     </DrawerHeader>
+     <Divider />
       <Toolbar />
 
      <Box sx={{ overflow: 'auto' }}>
@@ -228,9 +306,6 @@ export default function NavigationFrame({ children }) {
               component={Link} 
               key={item.text} 
               to={item.path}
-             // onClick={() => console.log('you clicked me')}
-
-         //     className={location.pathname == item.path ? classes.active : null}
             >
               <ListItemIcon style={{fill: "gold"}}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} 
@@ -249,6 +324,7 @@ export default function NavigationFrame({ children }) {
            
         </Box>
       </Drawer>
+    
       <main className={classes.content}>{children}</main>
       {!isExtensionWidth && <Footer />}
     </>
@@ -395,9 +471,15 @@ function NetworkSelector() {
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={() => setAnchorEl(null)}
+        anchorPosition={{ top: 100, left: 1700 }}
+        anchorReference="anchorPosition"
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
         }}
         getContentAnchorEl={null}
       >
@@ -518,9 +600,15 @@ function WalletSelector() {
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={() => setAnchorEl(null)}
+        anchorPosition={{ top: 100, left: 1200 }}
+        anchorReference="anchorPosition"
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
         }}
         getContentAnchorEl={null}
       >
