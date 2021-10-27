@@ -10,10 +10,10 @@ i18n
  .use(initReactI18next)
  .init({
    resources: {
-     en: {
+     English: {
        translation: TRANSLATIONS_EN
      },
-     ar: {
+     Arabic: {
        translation: TRANSLATIONS_AR
      }
    }

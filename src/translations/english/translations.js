@@ -38,7 +38,7 @@ export const TRANSLATIONS_EN = {
     Password:"Password",
     Restore:"Restore",
     DerivableAccounts:"Derivable Accounts",
-    IslamicCryptoFunding:"Islamic Crypto Funding",
+    IslamicCryptoFunding:" Islamic Crypto Funding",
     selectedAccount:"Selected Account",
     Account:"Account",
     SelectAccount:"Select Account",

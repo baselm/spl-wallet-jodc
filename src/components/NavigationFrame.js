@@ -31,7 +31,15 @@ import DeleteMnemonicDialog from './DeleteMnemonicDialog';
 import AddHardwareWalletDialog from './AddHarwareWalletDialog';
 import { ExportMnemonicDialog } from './ExportAccountDialog.js';
 import { useWallet, WalletProvider } from '../utils/wallet';
-
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Popper from '@mui/material/Popper';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
+import logoIcon from "../Islamic Crypto Funding-logos/Islamic Crypto Funding-logos_white.png"
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import TranslateIcon from '@material-ui/icons/TranslateOutlined';
+import NetworkWifiOutlinedIcon from '@material-ui/icons/NetworkWifiOutlined';
 import {
   isExtension,
   isExtensionPopup,
@@ -52,7 +60,6 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Box from '@material-ui/core/Box';
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -156,6 +163,7 @@ export default function NavigationFrame({ children }) {
   const isExtensionWidth = useIsExtensionWidth();
   const {t} = useTranslation();
   const wallet = useWallet();
+  
 
 
   const menuItems = [
@@ -183,33 +191,66 @@ export default function NavigationFrame({ children }) {
     },
   ];
     const { i18n } = useTranslation();
-    const [language, setLanguage] = useState("id");
+    
     
     const [mobileOpen, setMobileOpen] = useState(false);
     console.log(mobileOpen.toString() + "<-- mobileOpen")
-    if (!wallet)
-    {
-      console.log('no walett'); 
-      
-    }else
-    {
-      console.log(' walett found'); 
-    }
+    
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
       console.log(mobileOpen.toString() + "<-- mobileOpen")
       };
     const container = window !== undefined ? () => window().document.body : undefined;
+    const [open, setOpen] = useState(false);
+   // const [language, setLanguage] = useState(false);
+  const anchorRef = React.useRef(null);
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+/*
+    const handleLangChange = (event) => {
+      const lang = event.target.value;
 
-    const handleLangChange = evt => {
-    const lang = evt.target.value;
-    console.log(lang);
+    console.log("U clicked me "+lang);
     setLanguage(lang);
     i18n.changeLanguage(lang);
     setPageDirection(lang);
-  };
+    };*/
   
+    const handleClose = (event, index) => {
+      const lang = event.nativeEvent.target.outerText
+       if (lang){
+        console.log("U clicked me "+lang);
+        i18n.changeLanguage(lang);
+        setPageDirection(lang);
+       }
+      if (anchorRef.current && anchorRef.current.contains(event.target)) {
+        return; 
+     
+        
+        
+      }
   
+      setOpen(false);
+    };
+    function handleListKeyDown(event) {
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        setOpen(false);
+      } else if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    }
+  
+    // return focus to the button when we transitioned from !open -> open
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+      if (prevOpen.current === true && open === false) {
+        anchorRef.current.focus();
+      }
+  
+      prevOpen.current = open;
+    }, [open]);
   return (
     <>
 
@@ -234,6 +275,7 @@ export default function NavigationFrame({ children }) {
           </div>
         )}
         <Toolbar>
+        
         <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -242,24 +284,72 @@ export default function NavigationFrame({ children }) {
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
+            
+
            </IconButton>
-         
+           
+           <Divider orientation="vertical" style={{ background: 'white' }} flexItem />
           
 
         <br/>
-          <Typography variant="h6" className={classes.title} component="h1">
-                    
+        
+        <img src={logoIcon} style={{ width: '100px', height: '92px' }} />
+
+          <Typography variant="h6" className={classes.title} component="h1" align="center">
+
             {t('IslamicCryptoFunding')}
             
 
           </Typography>
           <NavigationButtons />
-          <select onChange={handleLangChange} value={language}>
-          <option value=" "> </option>
-            <option value="en">EN</option>
-            <option value="ar">AR</option>
-           
-          </select>
+
+         
+
+         <Button
+          ref={anchorRef}
+          id="composition-button"
+          aria-controls={open ? 'composition-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          <TranslateIcon color="secondary"/>
+        </Button>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          placement="bottom-start"
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === 'bottom-start' ? 'left top' : 'left bottom',
+              }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList
+                    autoFocusItem={open}
+                    id="composition-menu"
+                    aria-labelledby="composition-button"
+                    onKeyDown={handleListKeyDown}
+                  >
+                    <MenuItem value="en" onClick=  {handleClose}>English</MenuItem>
+                    <MenuItem value="ar" onClick={handleClose}>Arabic</MenuItem>
+                    <MenuItem onClick={handleClose}> </MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+        
+
         </Toolbar>
       </AppBar>
       <Paper>
@@ -406,6 +496,7 @@ function ConnectionsButton() {
 
   return (
     <>
+    
       <Hidden smUp>
         <Tooltip title="Manage Connections">
           <IconButton color="inherit" onClick={onClick}>
@@ -425,6 +516,7 @@ function ConnectionsButton() {
         >
           <Button color="inherit" onClick={onClick} className={classes.button}>
             Connections
+            
           </Button>
         </Badge>
       </Hidden>
@@ -443,14 +535,8 @@ function NetworkSelector() {
 
   return (
     <>
-      <AddCustomClusterDialog
-        open={addCustomNetworkOpen}
-        onClose={() => setCustomNetworkOpen(false)}
-        onAdd={({ name, apiUrl }) => {
-          addCustomCluster(name, apiUrl);
-          setCustomNetworkOpen(false);
-        }}
-      />
+    
+      
       <Hidden xsDown>
         <Button
           color="inherit"
@@ -458,13 +544,15 @@ function NetworkSelector() {
           className={classes.button}
         >
           {cluster?.label ?? t('Network')}
+          <NetworkWifiOutlinedIcon />
         </Button>
       </Hidden>
       <Hidden smUp>
         <Tooltip title= {t('SelectNetwork')} arrow>
-          <IconButton color="inherit" onClick={(e) => setAnchorEl(e.target)}>
-            <SolanaIcon />
-          </IconButton>
+           
+
+        
+
         </Tooltip>
       </Hidden>
       <Menu
@@ -500,7 +588,6 @@ function NetworkSelector() {
             {cluster.name === 'mainnet-beta-backup'
               ? t('MainnetBetaBackup')
               : cluster.apiUrl}
-              
           </MenuItem>
         ))}
        
@@ -586,7 +673,9 @@ function WalletSelector() {
           onClick={(e) => setAnchorEl(e.target)}
           className={classes.button}
         >
+         <AccountBalanceIcon />
           {t("Account")}
+
         </Button>
       </Hidden>
       <Hidden smUp>
