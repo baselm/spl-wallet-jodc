@@ -12,8 +12,12 @@ import {
 } from '../utils/wallet';
 import { findAssociatedTokenAddress } from '../utils/tokens';
 import LoadingIndicator from './LoadingIndicator';
+import { red } from '@mui/material/colors';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import Collapse from '@material-ui/core/Collapse';
-import { Typography } from '@material-ui/core';
+import { Card, Divider, Typography, Box, CardHeader } from '@material-ui/core';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@material-ui/core/Grid';
 import TokenInfoDialog from './TokenInfoDialog';
 import FtxPayDialog from './FtxPay/FtxPayDialog';
 import Link from '@material-ui/core/Link';
@@ -34,6 +38,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import MergeType from '@material-ui/icons/MergeType';
 import SortIcon from '@material-ui/icons/Sort';
+import Avatar from '@material-ui/core/Avatar';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddTokenDialog from './AddTokenDialog';
 import ExportAccountDialog from './ExportAccountDialog';
@@ -195,67 +201,41 @@ export default function BalancesList() {
     });
   }, [sortedPublicKeys, setUsdValuesCallback]);
 
-  const iconSize = isExtensionWidth ? 'small' : 'medium';
+  const iconSize = 'large';
   const {t} = useTranslation();
   return (
-    <Paper>
-      <AppBar position="static" color="default" elevation={1}>
+    <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="flex-end" >
+      
+        <Grid item xs={12} sm={12} md={12} xl={12}>
+    
+      <AppBar position="static" color="primary" elevation={2}>
         <Toolbar>
-          <CopyToClipboard
-            text={t("selectedAccount") && selectedAccount.address.toBase58()}
-            onCopy={() => {
-              setIsCopied(true);
-              setTimeout(() => {
-                setIsCopied(false);
-              }, 1000);
-            }}
-          >
-            <Tooltip
-              title={
-                <Typography>
-                  {isCopied ? 'Copied' : 'Copy to clipboard'}
-                </Typography>
-              }
-              style={{ fontSize: '10rem' }}
-            >
-              <Typography
+        <Typography
+                component="h1"
                 variant="h6"
-                style={{
-                  flexGrow: 1,
-                  fontSize: isExtensionWidth && '1rem',
-                  cursor: 'pointer',
-                }}
-                hover={true}
-                component="h2"
-              >
-                {selectedAccount && selectedAccount.name}
-                {isExtensionWidth
-                  ? ''
-                  : ` (${
-                      selectedAccount &&
-                      shortenAddress(selectedAccount.address.toBase58())
-                    })`}{' '}
-                {allTokensLoaded && (
-                  <>({numberFormat.format(totalUsdValue.toFixed(2))})</>
-                )}
-              </Typography>
-            </Tooltip>
-          </CopyToClipboard>
+                color="secondary" 
+                noWrap
+                sx={{ flexGrow: 3 }}
+                >
+                  
           {selectedAccount &&
             selectedAccount.name !== 'Main account' &&
             selectedAccount.name !== 'Hardware wallet' && (
               <Tooltip title={t('editAccount')} arrow>
                 <IconButton
                   size={iconSize}
+                  color = 'secondary'
                   onClick={() => setShowEditAccountNameDialog(true)}
                 >
                   <EditIcon />
                 </IconButton>
               </Tooltip>
             )}
-          <Tooltip title="Deposit via FTX Pay" arrow>
+            </Typography>
+                 <Tooltip title="Deposit via FTX Pay" arrow>
             <IconButton
               size={iconSize}
+              color = 'secondary'
               onClick={() => setShowFtxPayDialog(true)}
             >
               <img
@@ -269,32 +249,19 @@ export default function BalancesList() {
               />
             </IconButton>
           </Tooltip>
-          <Tooltip title="See your domains" arrow>
-            <IconButton size={iconSize} onClick={() => setShowDomains(true)}>
-              <DnsIcon />
-            </IconButton>
-          </Tooltip>
-          <DomainsList open={showDomains} setOpen={setShowDomains} />
-          {region.result && !region.result.isRestricted && <SwapButton size={iconSize} />}
-          <Tooltip title="Migrate Tokens" arrow>
-            <IconButton
-              size={iconSize}
-              onClick={() => setShowMergeAccounts(true)}
-            >
-              <MergeType />
-            </IconButton>
-          </Tooltip>
           <Tooltip title="Add Token" arrow>
+                      <IconButton
+                        size={iconSize}
+                        color = 'secondary'
+                        onClick={() => setShowAddTokenDialog(true)}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </Tooltip>
+                     <Tooltip title="Sort Tokens" arrow>
             <IconButton
               size={iconSize}
-              onClick={() => setShowAddTokenDialog(true)}
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Sort Tokens" arrow>
-            <IconButton
-              size={iconSize}
+              color = 'secondary'
               onClick={() => {
                 switch (sortAccounts) {
                   case SortAccounts.None:
@@ -317,6 +284,7 @@ export default function BalancesList() {
           <Tooltip title="Refresh" arrow>
             <IconButton
               size={iconSize}
+              color = 'secondary'
               onClick={() => {
                 refreshWalletPublicKeys(wallet);
                 publicKeys.map((publicKey) =>
@@ -329,8 +297,65 @@ export default function BalancesList() {
             </IconButton>
           </Tooltip>
         </Toolbar>
+        <Box m={2}>
+        <Typography>
+       
+        <CopyToClipboard
+            text={t("selectedAccount") && selectedAccount.address.toBase58()}
+            onCopy={() => {
+              setIsCopied(true);
+              setTimeout(() => {
+                setIsCopied(false);
+              }, 1000);
+            }}
+          >
+            
+            <Tooltip
+              title={
+                <Typography>
+                  {isCopied ? 'Copied' : 'Copy to clipboard'}
+                </Typography>
+              }
+              style={{ fontSize: '10rem' }}
+            >
+              <Typography
+                variant="h6"
+                style={{
+                  cursor: 'pointer',
+                }}
+                ml={2}
+                hover={true}
+                component="h2"
+              >
+                <AccountBalanceWalletIcon size="large"/> {' '}
+                {selectedAccount && selectedAccount.name} {'  '}
+                {allTokensLoaded && (
+                  <>({numberFormat.format(totalUsdValue.toFixed(2))})</>
+                )}
+                 
+              
+              </Typography>
+            </Tooltip>
+          </CopyToClipboard>
+        </Typography>
+        </Box>
       </AppBar>
-      <List disablePadding>
+
+        <Card sx={{ minWidth: 640 }} elevation={5} >
+        <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                   <AccountBalanceWalletIcon />
+                  </Avatar>
+                }
+                
+                title="Main Account"
+
+              />
+              <CardContent>
+                
+                
+                 <List disablePadding>
         {balanceListItemsMemo.map((Memoized) => (
           <Memoized />
         ))}
@@ -357,8 +382,16 @@ export default function BalancesList() {
       <MergeAccountsDialog
         open={showMergeAccounts}
         onClose={() => setShowMergeAccounts(false)}
-      />
-    </Paper>
+      />            
+              </CardContent>
+               
+            </Card>  
+         
+
+            </Grid>
+    
+    </Grid>
+
   );
 }
 
@@ -423,12 +456,12 @@ export function BalanceListItem({ publicKey, expandable, setUsdValue }) {
         }
         // No Serum market exists.
         else {
-          setPrice(null);
+          setPrice(1);
         }
       }
       // No token symbol so don't fetch market data.
       else {
-        setPrice(null);
+        setPrice(1);
       }
     }
   }, [price, balanceInfo, connection]);

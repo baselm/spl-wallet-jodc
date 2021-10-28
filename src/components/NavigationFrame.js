@@ -197,8 +197,12 @@ export default function NavigationFrame({ children }) {
     console.log(mobileOpen.toString() + "<-- mobileOpen")
     
     const handleDrawerToggle = () => {
-      setMobileOpen(!mobileOpen);
-      console.log(mobileOpen.toString() + "<-- mobileOpen")
+      if (wallet)
+      {
+        setMobileOpen(!mobileOpen);
+        console.log(mobileOpen.toString() + "<-- mobileOpen")
+      }
+     
       };
     const container = window !== undefined ? () => window().document.body : undefined;
     const [open, setOpen] = useState(false);
@@ -216,20 +220,20 @@ export default function NavigationFrame({ children }) {
     i18n.changeLanguage(lang);
     setPageDirection(lang);
     };*/
-  
-    const handleClose = (event, index) => {
+    const clickoutside = (event) => {
+      if (anchorRef.current && anchorRef.current.contains(event.target)) {
+        return;         
+      }
+      setOpen(false);
+    }
+    const handleClose = (event) => {
       const lang = event.nativeEvent.target.outerText
        if (lang){
         console.log("U clicked me "+lang);
         i18n.changeLanguage(lang);
         setPageDirection(lang);
        }
-      if (anchorRef.current && anchorRef.current.contains(event.target)) {
-        return; 
-     
-        
-        
-      }
+      
   
       setOpen(false);
     };
@@ -275,7 +279,7 @@ export default function NavigationFrame({ children }) {
           </div>
         )}
         <Toolbar>
-        
+        <Tooltip title="Open Drawer">
         <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -287,7 +291,7 @@ export default function NavigationFrame({ children }) {
             
 
            </IconButton>
-           
+           </Tooltip>
            <Divider orientation="vertical" style={{ background: 'white' }} flexItem />
           
 
@@ -304,7 +308,7 @@ export default function NavigationFrame({ children }) {
           <NavigationButtons />
 
          
-
+          <Tooltip title="Change Language!" arrow>
          <Button
           ref={anchorRef}
           id="composition-button"
@@ -315,6 +319,7 @@ export default function NavigationFrame({ children }) {
         >
           <TranslateIcon color="secondary"/>
         </Button>
+        </Tooltip>
         <Popper
           open={open}
           anchorEl={anchorRef.current}
@@ -332,7 +337,7 @@ export default function NavigationFrame({ children }) {
               }}
             >
               <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
+                <ClickAwayListener onClickAway={clickoutside}>
                   <MenuList
                     autoFocusItem={open}
                     id="composition-menu"
@@ -341,7 +346,7 @@ export default function NavigationFrame({ children }) {
                   >
                     <MenuItem value="en" onClick=  {handleClose}>English</MenuItem>
                     <MenuItem value="ar" onClick={handleClose}>Arabic</MenuItem>
-                    <MenuItem onClick={handleClose}> </MenuItem>
+                    <MenuItem onClick={handleClose}>Swedish</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -673,7 +678,7 @@ function WalletSelector() {
           onClick={(e) => setAnchorEl(e.target)}
           className={classes.button}
         >
-         <AccountBalanceIcon />
+         <AccountBalanceIcon /> {' '}
           {t("Account")}
 
         </Button>

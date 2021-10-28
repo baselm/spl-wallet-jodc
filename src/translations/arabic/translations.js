@@ -97,7 +97,9 @@ export const TRANSLATIONS_AR = {
     TotalBorrowed:"إجمالي القتراض ",
     lentout:'% أقرضت الآن',
     marketComposition:"تكوين السوق" ,
-    borrowing:"يمكنك اقتراض أموال FIAT عن طريق وضع رمز التشفير الخاص بك كضامن لسداد القرض"
+    borrowing:"يمكنك اقتراض أموال FIAT عن طريق وضع رمز التشفير الخاص بك كضامن لسداد القرض",
+    Account:"جميع الحسابات"
+
 
 
 
