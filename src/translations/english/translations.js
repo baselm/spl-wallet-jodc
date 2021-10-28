@@ -95,7 +95,11 @@ export const TRANSLATIONS_EN = {
     editAccount:"Edit Account",
     save:"Save",
     mainAccount: "Main Account",
-    Account:" All Accounts"
+    Account:" All Accounts",
+    CurrentMarketSize:" Current Market Size",
+    TotalBorrowed:"Total Borrowed ",
+    lentout:" Lent Out %"
+    
 
     
 
