@@ -95,7 +95,7 @@ export const TRANSLATIONS_EN = {
     editAccount:"Edit Account",
     save:"Save",
     mainAccount: "Main Account",
-    Account:"All Accounts"
+    Account:" All Accounts"
 
     
 

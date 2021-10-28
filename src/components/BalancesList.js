@@ -342,16 +342,6 @@ export default function BalancesList() {
       </AppBar>
 
         <Card sx={{ minWidth: 640 }} elevation={5} >
-        <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                   <AccountBalanceWalletIcon />
-                  </Avatar>
-                }
-                
-                title="Main Account"
-
-              />
               <CardContent>
                 
                 
@@ -556,6 +546,7 @@ export function BalanceListItem({ publicKey, expandable, setUsdValue }) {
 
   return (
     <>
+    <Typography>From here </Typography>
       <ListItem>
         <ListItemIcon>
           <TokenIcon
@@ -756,6 +747,7 @@ function BalanceListItemDetails({
 
   return (
     <>
+    <Typography> Changing the behavior of</Typography>
       {wallet.allowsExport && (
         <ExportAccountDialog
           onClose={() => setExportAccDialogOpen(false)}

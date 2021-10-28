@@ -678,7 +678,7 @@ function WalletSelector() {
           onClick={(e) => setAnchorEl(e.target)}
           className={classes.button}
         >
-         <AccountBalanceIcon /> {' '}
+         <AccountBalanceIcon /> {'  -- '}
           {t("Account")}
 
         </Button>
