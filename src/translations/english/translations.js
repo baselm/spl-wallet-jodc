@@ -111,7 +111,8 @@ export const TRANSLATIONS_EN = {
     ChoosePassword: "Choose a Password (Optional)",
     PickPassword: "Optionally pick a password to protect your crypto wallet.", 
     NewPassword: "New Password",  
-    PasswordNote: "If you forget your password you will need to restore your wallet using your seed words."
+    PasswordNote: "If you forget your password you will need to restore your wallet using your seed words.",
+    marketComposition:"Market Composition"
 
 
     
