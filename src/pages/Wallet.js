@@ -6,8 +6,8 @@ import { useIsProdNetwork } from '../utils/connection';
 import DebugButtons from '../components/DebugButtons';
 import { makeStyles } from '@material-ui/core';
 import { useIsExtensionWidth } from '../utils/utils';
-import Dashboard from './DemoDashboard';
-import { Typography } from '@material-ui/core';
+
+
 const useStyles = makeStyles((theme) => ({
   container: {
     [theme.breakpoints.down(theme.ext)]: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Borrow() {
+export default function Wallet() {
   const classes = useStyles();
   const isProdNetwork = useIsProdNetwork();
   const isExtensionWidth = useIsExtensionWidth();
@@ -32,9 +32,13 @@ export default function Borrow() {
     <Container fixed maxWidth="md" className={classes.container}>
       <Grid container spacing={isExtensionWidth ? 0 : 3}>
         <Grid item xs={12} className={classes.balancesContainer}>
-         <Typography>Borrow Page</Typography>
+          <BalancesList />
         </Grid>
-        
+        {isProdNetwork ? null : (
+          <Grid item xs={12}>
+            <DebugButtons />
+          </Grid>
+        )}
       </Grid>
    
     </Container>

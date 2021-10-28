@@ -40,6 +40,7 @@ import logoIcon from "../Islamic Crypto Funding-logos/Islamic Crypto Funding-log
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import TranslateIcon from '@material-ui/icons/TranslateOutlined';
 import NetworkWifiOutlinedIcon from '@material-ui/icons/NetworkWifiOutlined';
+import Wallet from '../pages/Wallet'
 import {
   isExtension,
   isExtensionPopup,
@@ -168,16 +169,17 @@ export default function NavigationFrame({ children }) {
 
   const menuItems = [
     { 
-      text: 'Wallet', 
-      icon: <TimelineIcon color="secondary" fontSize="large" />, 
-      path: '/' 
-    },
-    
-    { 
       text: 'Dashboard', 
       icon: <DashboardIcon color="secondary" fontSize="large" />, 
       path: '/Dashboard' 
     },
+    { 
+      text: 'Wallet', 
+      icon: <TimelineIcon color="secondary" fontSize="large" />, 
+      path: '/Wallet' 
+    },
+    
+   
     { 
       text: 'Invest', 
       icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 

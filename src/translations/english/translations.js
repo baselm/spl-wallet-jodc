@@ -98,8 +98,21 @@ export const TRANSLATIONS_EN = {
     Account:" All Accounts",
     CurrentMarketSize:" Current Market Size",
     TotalBorrowed:"Total Borrowed ",
-    lentout:" Lent Out %"
-    
+    lentout:" Lent Out %",
+    CreateNewWallet: "Create New Wallet",
+    CreateNewWalletBody: "Create a new wallet to hold Solana and SPL tokens",
+    SaveSeed:"Please write down the following twenty four words and keep them in a safe place:",
+    CreateNewWalletBody3: "You will need these words to restore your wallet if your browser's storage is cleared or your device is damaged or lost.",
+    CreateNewWalletBody4: "By default, sollet will use m/44'/501'/0'/0' as the derivation path for the main wallet. To use an alternative path, try restoring an existing wallet.",
+    CreateNewWalletLabel1: "I have saved these words in a safe place.",
+    CreateNewWalletLabel2: "Download Backup Mnemonic File (Required)",
+    renewSeedWords: "Please re-enter your seed phrase to confirm that you have saved it.",
+    renewSeedWordsLabel1: "Please type your seed phrase to confirm",
+    ChoosePassword: "Choose a Password (Optional)",
+    PickPassword: "Optionally pick a password to protect your crypto wallet.", 
+    NewPassword: "New Password",  
+    PasswordNote: "If you forget your password you will need to restore your wallet using your seed words."
+
 
     
 

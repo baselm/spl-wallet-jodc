@@ -33,7 +33,7 @@ import Borrow from './pages/Borrow';
 import DemoDashboard from './pages/DemoDashboard';
 import { useTranslation } from 'react-i18next';
 import { arSD } from '@mui/material/locale';
-
+import Wallet from './pages/Wallet';
 export default function App() {
   // TODO: add toggle for dark mode
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -91,8 +91,8 @@ export default function App() {
                       <Route path="/Dashboard">
                         <Dashboard />
                       </Route>
-                      <Route path="/DemoDashboard">
-                        <DemoDashboard />
+                      <Route path="/Wallet">
+                        <Wallet />
                       </Route>
                       <Route path="/Borrow">
                         <Borrow />
@@ -116,7 +116,7 @@ function PageContents() {
   const suggestionKey = 'private-irgnore-wallet-suggestion';
   const ignoreSuggestion = window.localStorage.getItem(suggestionKey);
 
-  console.log('Baz working start');
+  console.log('Baz working start' + page);
   if (!wallet) {
     return (
       <>
@@ -138,7 +138,7 @@ function PageContents() {
     return <PopupPage opener={window.opener} />;
   }
   if (page === 'wallet') {
-    return <WalletPage />;
+    return <Dashboard />;
   } else if (page === 'connections') {
     return <ConnectionsPage />;
   }
