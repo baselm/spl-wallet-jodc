@@ -172,25 +172,25 @@ export default function NavigationFrame({ children }) {
 
   const menuItems = [
     { 
-      text: 'Dashboard', 
+      text: t('Dashboard'), 
       icon: <DashboardIcon color="secondary" fontSize="large" />, 
       path: '/Dashboard' 
     },
     { 
-      text: 'Wallet', 
+      text: t('Wallet'), 
       icon: <TimelineIcon color="secondary" fontSize="large" />, 
       path: '/Wallet' 
     },
     
    
     { 
-      text: 'Invest', 
+      text: t('Invest'), 
       icon: <AccountBalanceIcon color="secondary" fontSize="large" />, 
       path: '/Invest' 
     },
    
     { 
-      text: 'Borrow', 
+      text: t('Borrow'), 
       icon: <PaymentIcon color="secondary" fontSize="large" />, 
       path: '/Borrow' 
     },

@@ -115,8 +115,12 @@ export const TRANSLATIONS_AR = {
     PickPassword: "اختياريًا ، اختر كلمة مرور لحماية محفظتك المشفرة",
     NewPassword: "كلمة المرور الجديدة",
     PasswordNote: "إذا نسيت كلمة المرور الخاصة بك ، فستحتاج إلى استعادة محفظتك باستخدام الكلمات الأولية",
-    marketComposition: "تكوين السوق",
-    
+    marketComposition: "تكوين السوق",   
+    Dashboard:" لوحة التحكم الرئيسية",
+    Wallet:"محفظة التشفير",
+    Invest:"استثمر",
+    Borrow:"اقتراض",
+
     
 
 
