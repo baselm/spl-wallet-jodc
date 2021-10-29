@@ -84,7 +84,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 const useStyles = makeStyles((theme) => ({
-  /* @noflip */
+   
   content: {
     flexGrow: 1,
     paddingBottom: theme.spacing(3),
@@ -101,12 +101,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 3,
   },
   button: {
-    /* @noflip */
+     
     marginLeft: theme.spacing(1),
   },
   toolbar: theme.mixins.toolbar,
   menuItemIcon: {
-    /* @noflip */
+     
     minWidth: 32,
   },
   badge: {
@@ -116,18 +116,18 @@ const useStyles = makeStyles((theme) => ({
     width: 16,
   },
   appBar: {
-    /* @noflip */
+    
     postion: 'fixed',
     
 
   },
   drawer: {
-    /* @noflip */
+    
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
-    /* @noflip */
+    
     position: "fixed",
     width: drawerWidth,
     borderRadius: 0,
@@ -147,11 +147,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing.unit * 4,
   },
   toolbar:
-  /* @noflip */
+   
    theme.mixins.toolbar,
 
 }));
-const rtlLanguages = ["ar"];
+
+
+const rtlLanguages = ["Arabic"];
+
 function setPageDirection(language) {
   console.log("Lan language"+language)
   const dir = rtlLanguages.includes(language) ? "rtl" : "ltr"
